@@ -11,6 +11,11 @@ var usersById = {};
 var nextUserId = 0;
 var usersByTwitId = {};
 
+everyauth.everymodule
+  .findUserById( function (id, callback) {
+    callback(null, usersById[id]);
+  });
+  
 everyauth.twitter
     .consumerKey(conf.twit.consumerKey)
     .consumerSecret(conf.twit.consumerSecret)
@@ -62,17 +67,6 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
-
-app.get('/private', function(req, res){
-    /*console.log(req.session);*/
-    if(req.session.auth && req.session.auth.loggedIn){
-      res.render('private', {title: 'Protected'});
-    }else{
-      console.log("The user is NOT logged in");
-      /*console.log(req.session);*/
-      res.redirect('/');
-    }
-});
 
 app.listen(process.env.C9_PORT, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

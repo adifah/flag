@@ -5,7 +5,7 @@ div(data-role='page')
         - if (!everyauth.loggedIn)
             h2 Not Authenticated
             #twitter-login
-                a(href='/auth/twitter', style='border: 0px')
+                a(href='/auth/twitter', style='border: 0px', rel='external')
                     img(style='border: 0px', src='https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png')
         - else
             h2 Authenticated
