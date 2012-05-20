@@ -1,20 +1,23 @@
-div(data-role='page')
-    div(data-role='header')
-        h1 Flag-Zig-Zag
-    div(data-role='content')
-        - if (!everyauth.loggedIn)
+- if (!everyauth.loggedIn)
+    div(data-role='page')
+        div(data-role='header')
+            h1 Flag-Zig-Zag
+        div(data-role='content')
             h2 Not Authenticated
             #twitter-login
                 a(href='/auth/twitter', style='border: 0px', rel='external')
                     img(style='border: 0px', src='https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png')
-        - else
-            h2 Authenticated
+- else
+    div(data-role='page', id='dashboard')
+        div(data-role='header')
+            h1 Flag-Zig-Zag
+        div(data-role='content')
             - if (everyauth.twitter)
-                p Hello <b>#{everyauth.twitter.user.name}</b> (#{everyauth.twitter.user.screen_name})
+                h2 Hello <b>#{everyauth.twitter.user.name}</b> (@#{everyauth.twitter.user.screen_name})
                 // p= JSON.stringify(everyauth.twitter.user)
             ul(data-role='listview', data-inset='true', data-filter='true')
                 li
-                    a(href='#') Memorize
+                    a(href='#memorize') Memorize
                 li
                     a(href='#') GPS Questioning
                 li
@@ -25,3 +28,8 @@ div(data-role='page')
                     a(href='#') Texturize
             h3 
                 a(href='/logout') Logout
+    div(data-role='page', id='memorize')
+        div(data-role='header')
+            h1 Memorize
+        div(data-role='content')
+            p Memorize
