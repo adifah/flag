@@ -10,7 +10,6 @@ var express = require('express')
 var usersById = {};
 var nextUserId = 0;
 var usersByTwitId = {};
-// var usersByFbId = {};
 
 everyauth.twitter
     .consumerKey(conf.twit.consumerKey)
@@ -19,16 +18,6 @@ everyauth.twitter
       return usersByTwitId[twitUser.id] || (usersByTwitId[twitUser.id] = addUser('twitter', twitUser));
     })
     .redirectPath('/');
-
-/*
-everyauth.facebook
-  .appId(conf.fb.appId)
-  .appSecret(conf.fb.appSecret)
-  .findOrCreateUser( function (session, accessToken, accessTokExtra, fbUserMetadata) {
-      return usersByFbId[fbUserMetadata.id] || (usersByFbId[fbUserMetadata.id] = addUser('facebook', fbUserMetadata));
-  })
-  .redirectPath('/');
-*/
 
 function addUser (source, sourceUser) {
   var user;
@@ -59,7 +48,7 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
   app.use(everyauth.middleware()); // allows express helpers determining the login status or accessing user details
-  everyauth.helpExpress(app);
+  everyauth.helpExpress(app); // alles using helper methods in express views (like everyauth.loggedIn)
 });
 
 app.configure('development', function(){
