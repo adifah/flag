@@ -3,9 +3,10 @@
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
-      "express": "2.5.8"
+      "express": "2.5.x"
     , "jade": ">= 0.0.1"
     , "socket.io": "0.9.x"
-    , "everyauth": "0.2.32"
+    , "conf": "0.8.4"
+    , "everyauth": "0.2.x"
   }
 }

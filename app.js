@@ -4,6 +4,7 @@
 
 var express = require('express')
   , everyauth = require('everyauth')
+  , conf = require('./conf')
   , routes = require('./routes');
 
 var usersById = {};
@@ -55,7 +56,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
-  app.use(everyauth.middleware()); / allows express helpers determining the login status or accessing user details
+  app.use(everyauth.middleware()); // allows express helpers determining the login status or accessing user details
   everyauth.helpExpress(app);
 });
 
