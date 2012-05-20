@@ -4,13 +4,13 @@
 
 var express = require('express')
   , everyauth = require('everyauth')
-  , conf = require('conf')
+  , conf = require('./conf')
   , routes = require('./routes');
 
 var usersById = {};
 var nextUserId = 0;
 var usersByTwitId = {};
-var usersByFbId = {};
+// var usersByFbId = {};
 
 everyauth.twitter
     .consumerKey(conf.twit.consumerKey)
@@ -20,6 +20,7 @@ everyauth.twitter
     })
     .redirectPath('/');
 
+/*
 everyauth.facebook
   .appId(conf.fb.appId)
   .appSecret(conf.fb.appSecret)
@@ -27,6 +28,7 @@ everyauth.facebook
       return usersByFbId[fbUserMetadata.id] || (usersByFbId[fbUserMetadata.id] = addUser('facebook', fbUserMetadata));
   })
   .redirectPath('/');
+*/
 
 function addUser (source, sourceUser) {
   var user;
