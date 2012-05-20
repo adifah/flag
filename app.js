@@ -4,7 +4,7 @@
 
 var express = require('express')
   , everyauth = require('everyauth')
-  , conf = require('./conf')
+  , conf = require('conf')
   , routes = require('./routes');
 
 var usersById = {};
