@@ -4,7 +4,7 @@ p {
 .profil-image {
     float: left;
     margin-right: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 .user-infos {
     margin-bottom: 15px;
