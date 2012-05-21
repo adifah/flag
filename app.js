@@ -7,7 +7,7 @@ var express = require('express')
   , conf = require('./conf')
   , routes = require('./routes');
 
-var port = process.env.C9_PORT || 3000 // process.env.C9_PORT is for c9.io
+var port = process.env.C9_PORT || 3000; // process.env.C9_PORT is for c9.io
 
 var usersById = {};
 var nextUserId = 0;
