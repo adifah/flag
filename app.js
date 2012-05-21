@@ -27,14 +27,18 @@ everyauth.twitter
             db.set(twitUser.id, createUser('twitter', twitUser));
             user = db.get(twitUser.id);
         }
-        console.log("return user: " + twitUser.id);
+        var logins = ++user.logins;
+        db.set(twitUser.id, {logins : logins});
+        console.log("return user: " + twitUser.id + " (" + user.logins + " logins)");
         return user;
     })
     .redirectPath('/');
 
 function createUser(source, sourceUser) {
-    var user = {id: sourceUser.id};
+    var user = {};
+    user['id'] = sourceUser.id;
     user[source] = sourceUser;
+    user['logins'] = 0;
     return user;
 }
 
