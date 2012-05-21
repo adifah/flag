@@ -5,38 +5,38 @@
 var express = require('express')
   , everyauth = require('everyauth')
   , conf = require('./conf')
+  , db = require('dirty')('user.db') // read 'user.db' file into memory or create one if not present
   , routes = require('./routes');
 
 var port = process.env.C9_PORT || process.env.PORT || 3000; // process.env.C9_PORT is for c9.io, process.env.PORT is for heroku, 3000 for everything else
 
-var usersById = {};
-var nextUserId = 0;
-var usersByTwitId = {};
-
-everyauth.everymodule
-  .findUserById( function (id, callback) {
-    callback(null, usersById[id]);
-  });
+everyauth.everymodule // delivers the correct session for every http request
+    .findUserById( function (id, callback) {
+        console.log("find user: " + id);
+        callback(null, db.get(id));
+    });
   
 everyauth.twitter
     .consumerKey(conf.twit.consumerKey)
     .consumerSecret(conf.twit.consumerSecret)
     .findOrCreateUser( function (sess, accessToken, accessSecret, twitUser) {
-      return usersByTwitId[twitUser.id] || (usersByTwitId[twitUser.id] = addUser('twitter', twitUser));
+        var user = db.get(twitUser.id);
+        if(user === undefined) {
+            console.log("create user: " + twitUser.id);
+            db.set(twitUser.id, addUser('twitter', twitUser));
+            user = db.get(twitUser.id);
+        }
+        console.log("return user: " + twitUser.id);
+        return user;
+      //return db.get(twitUser.id) || db.set(twitUser.id, addUser('twitter', twitUser));
+      //return usersByTwitId[twitUser.id] || (usersByTwitId[twitUser.id] = addUser('twitter', twitUser));
     })
     .redirectPath('/');
 
 function addUser (source, sourceUser) {
-  var user;
-  if (arguments.length === 1) { // password-based
-    user = sourceUser = source;
-    user.id = ++nextUserId;
-    return usersById[nextUserId] = user;
-  } else { // non-password-based
-    user = usersById[++nextUserId] = {id: nextUserId};
+    var user = {id: sourceUser.id};
     user[source] = sourceUser;
-  }
-  return user;
+    return user;
 }
 
 everyauth.debug = true;
