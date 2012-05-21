@@ -17,7 +17,7 @@
                 // p= JSON.stringify(everyauth.twitter.user)
             ul(data-role='listview', data-inset='true', data-filter='true')
                 li
-                    a(href='#memorize') Memorize
+                    a(href='#memorize', data-transition="slide") Memorize
                 li
                     a(href='#') GPS Questioning
                 li
@@ -29,7 +29,8 @@
             h3 
                 a(href='/logout') Logout
     div(data-role='page', id='memorize')
-        div(data-role='header')
+        div(data-role='header', data-position='inline')
+            a(href='/', data-icon='home', data-iconpos='notext', data-direction='reverse') Home
             h1 Memorize
         div(data-role='content')
             p Memorize
