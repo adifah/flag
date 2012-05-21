@@ -7,6 +7,8 @@ var express = require('express')
   , conf = require('./conf')
   , routes = require('./routes');
 
+var port = process.env.C9_PORT || 3000 // process.env.C9_PORT is for c9.io
+
 var usersById = {};
 var nextUserId = 0;
 var usersByTwitId = {};
@@ -68,6 +70,6 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
-app.listen(process.env.C9_PORT, function(){
+app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
