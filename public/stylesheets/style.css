@@ -1,8 +1,11 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+p {
+    margin-bottom: 10px;
 }
-
-a {
-  color: #00B7FF;
+.profil-image {
+    float: left;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+.user-infos {
+    margin-bottom: 15px;
 }

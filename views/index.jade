@@ -15,9 +15,15 @@
             a(href='#leaderboard', data-icon='star', data-iconpos='notext') Leaderboard
         div(data-role='content')
             - if (everyauth.twitter)
-                h2 Hello <b>#{everyauth.twitter.user.name}</b> (@#{everyauth.twitter.user.screen_name})
-                // p= JSON.stringify(everyauth.twitter.user)
-            ul(data-role='listview', data-inset='true', data-filter='true')
+                div(class='user-info')
+                    img(class='profil-image', src='#{everyauth.twitter.user.profile_image_url}')
+                    p Hello
+                        b  #{everyauth.twitter.user.name}
+                    small 
+                        a(href='http://twitter.com/#{everyauth.twitter.user.screen_name}') @#{everyauth.twitter.user.screen_name}
+                    div(style='clear:both')
+                    // p= JSON.stringify(everyauth.twitter.user)
+            ul(data-role='listview', data-inset='true')
                 li
                     a(href='#memorize') Memorize
                 li
