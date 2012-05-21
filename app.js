@@ -7,7 +7,7 @@ var express = require('express')
   , conf = require('./conf')
   , routes = require('./routes');
 
-var port = process.env.C9_PORT || 3000; // process.env.C9_PORT is for c9.io
+var port = process.env.C9_PORT || process.env.PORT || 3000; // process.env.C9_PORT is for c9.io, process.env.PORT is for heroku, 3000 for everything else
 
 var usersById = {};
 var nextUserId = 0;
