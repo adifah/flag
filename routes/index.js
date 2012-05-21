@@ -4,5 +4,5 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Flag-Zig-Zag' })
+  res.render('index', { title: 'Flag-Zigzag' })
 };

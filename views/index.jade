@@ -1,7 +1,7 @@
 - if (!everyauth.loggedIn)
     div(data-role='page')
         div(data-role='header')
-            h1 Flag-Zig-Zag
+            h1 Flag-Zigzag
         div(data-role='content')
             h2 Not Authenticated
             #twitter-login
@@ -9,15 +9,25 @@
                     img(style='border: 0px', src='https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png')
 - else
     div(data-role='page', id='dashboard')
-        div(data-role='header')
-            h1 Flag-Zig-Zag
+        div(data-role='header', data-position='fixed')
+            h1 Flag-Zigzag
         div(data-role='content')
             - if (everyauth.twitter)
                 h2 Hello <b>#{everyauth.twitter.user.name}</b> (@#{everyauth.twitter.user.screen_name})
                 // p= JSON.stringify(everyauth.twitter.user)
             ul(data-role='listview', data-inset='true', data-filter='true')
                 li
-                    a(href='#memorize', data-transition="slide") Memorize
+                    a(href='#memorize', data-transition='slide') Memorize
+                li
+                    a(href='#') GPS Questioning
+                li
+                    a(href='#') Colorstation
+                li
+                    a(href='#') Europe Map
+                li
+                    a(href='#') Texturize
+                li
+                    a(href='#memorize', data-transition='slide') Memorize
                 li
                     a(href='#') GPS Questioning
                 li
@@ -29,8 +39,8 @@
             h3 
                 a(href='/logout') Logout
     div(data-role='page', id='memorize')
-        div(data-role='header', data-position='inline')
-            a(href='/', data-icon='home', data-iconpos='notext', data-direction='reverse') Home
+        div(data-role='header', data-position='inline', data-position='fixed')
+            a(href='/', data-icon='home', data-iconpos='notext', data-transition='slide', data-direction='reverse') Dashboard
             h1 Memorize
         div(data-role='content')
             p Memorize
