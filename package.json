@@ -9,4 +9,5 @@
     , "dirty": "0.9.6"
     , "everyauth": "0.2.x"
   }
+  , "engine": "node 0.6.x"
 }
