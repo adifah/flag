@@ -57,6 +57,7 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
+    app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
     app.use(everyauth.middleware()); // allows express helpers determining the login status or accessing user details
     everyauth.helpExpress(app); // allows using helper methods in express views (like everyauth.loggedIn)
 });
