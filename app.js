@@ -14,11 +14,17 @@ everyauth.everymodule // delivers the correct session for every http request
     .findUserById( function (id, callback) {
         console.log("find user: " + id);
         callback(null, db.get(id));
+    })
+    .moduleErrback( function (err) {
+        console.log("Internal error '" + err + "' on authentication: ");
     });
-  
+    
 everyauth.twitter
     .consumerKey(conf.twit.consumerKey)
     .consumerSecret(conf.twit.consumerSecret)
+    .moduleErrback( function (err) {
+        console.log("Internal error '" + err + "' on authentication: ");
+    })
     .findOrCreateUser( function (sess, accessToken, accessSecret, twitUser) {
         // check if a user with this twitter id already exists in tht db
         var user = db.get(twitUser.id);
