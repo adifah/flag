@@ -38,7 +38,7 @@ everyauth.twitter
         console.log("return user: " + twitUser.id + " (" + user.logins + " logins)");
         return user;
     })
-    .redirectPath('/');
+    .redirectPath('/dashboard');
 
 function createUser(source, sourceUser) {
     var user = {};
@@ -79,6 +79,7 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/dashboard', routes.dashboard);
 
 app.listen(port, function(){
     console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
