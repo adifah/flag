@@ -1,0 +1,16 @@
+- if (!everyauth.loggedIn)
+    div(data-role='page')
+        div(data-role='header', data-position='fixed')
+            h1 Flag-Zigzag
+        div(data-role='content')
+            h2 Not Authenticated
+- else
+    div(data-role='page', id='memorize')
+        div(data-role='header', data-position='inline', data-position='fixed')
+            a(href='/', data-icon='home', data-iconpos='notext', data-direction='reverse') Dashboard
+            h1 Memorize
+            a(href='#leaderboard', data-icon='star', data-iconpos='notext') Leaderboard
+        div(data-role='content')
+            p Memorize
+            div(id='board')
+​

@@ -1,0 +1,111 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+/*
+body {
+    font-family: 'Lobster', cursive;
+    font-size: 22px;
+    text-shadow: 0 -1px 1px #888;
+    color: #111;
+    padding: 10px;
+    background-image: url('http://fc04.deviantart.net/fs11/i/2006/240/7/a/Bg_Texture___wood_by_nortago.jpg');
+    text-align: center;
+}
+h1 {
+    font-size: 45px;
+    color: #ad0;
+    text-shadow: 0 -1px 4px #3a3;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -moz-transition: all 1s;
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+h1:hover {
+    color: #DB70DB;
+    text-shadow: 0 -1px 4px #751075;
+} */
+#board {
+  max-width: 496px;
+  -webkit-perspective: 750px;
+  -moz-perspective: 250px;
+  perspective: 250px;
+  -webkit-perspective-origin: 50% 50%;
+  -moz-perspective-origin: 50% 50%;
+  perspective-origin: 50% 50%;
+}
+.tile {
+  position: relative;
+  float: left;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border: 2px solid #222;
+  border-radius: 10px;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  transition: transform 0.5s;
+}
+.side {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px #000;
+  line-height: 100px;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ie-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.flipped {
+  -webkit-transform: rotatey(180deg);
+  -moz-transform: rotatey(180deg);
+  transform: rotatey(180deg);
+}
+.flipped .back {
+  z-index: 99;
+  /* for older browsers */
+
+}
+.front {
+  z-index: 50;
+  /* for older browsers */
+
+  -moz-transform-style: preserve-3d;
+  /* http://blog.joelambert.co.uk/2012/02/13/3d-transformations-with-firefox-10/ */
+
+  background: #f1f1f1;
+  background: -moz-linear-gradient(left top, #e7e7e7 2%, #f7f7f7 80%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #e7e7e7), color-stop(80%, #f7f7f7));
+  background: linear-gradient(left top, #e7e7e7 2%, #f7f7f7 80%);
+}
+.back {
+  background: #DB70DB;
+  z-index: 10;
+  /* for older browsers */
+
+  -moz-transform-style: preserve-3d;
+  /* http://blog.joelambert.co.uk/2012/02/13/3d-transformations-with-firefox-10/ */
+
+  -webkit-transform: rotatey(180deg);
+  -moz-transform: rotatey(180deg);
+  transform: rotatey(180deg);
+}
+.front:hover {
+  background: #ccc;
+  /* for ie */
+
+  background: -moz-linear-gradient(left top, #999999 2%, #f7f7f7 80%);
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(2%, #999999), color-stop(80%, #f7f7f7));
+  background: linear-gradient(left top, #999999 2%, #f7f7f7 80%);
+}
+.match .back {
+  background: #AADD00;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
