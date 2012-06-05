@@ -3,19 +3,20 @@ var resultMap,
     moves = 0,
     pairs = 0,
     countries = ["Germany", "China", "USA", "Russia", "Israel", "Spain"],
-    board = $('#board'),
+    board = '#board',
     title = "Memory",
     isPending = false;
 
-$(document).ready(function () {
-    start();
+$( document ).delegate("#memorize", "pageinit", function() {
+  console.log('memorize page was just created by jQuery Mobile!');
+  start();
 });
 
 function start() {
     pairs = 0;
     moves = 0;
     lastTile = null;
-    board.html("");
+    $(board).html("");
     resultMap = createMemoryBoard(countries, board, title);
     isPending = false;
 }
@@ -119,7 +120,7 @@ function finish() {
 
 function restart() {
     isPending = true;
-    board.children().each(function () {
+    $(board).children().each(function () {
         $(this).removeClass("flipped");
     });
     setTimeout(function () {
