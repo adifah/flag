@@ -8,7 +8,7 @@ body {
     padding: 10px;
     background-image: url('http://fc04.deviantart.net/fs11/i/2006/240/7/a/Bg_Texture___wood_by_nortago.jpg');
     text-align: center;
-}
+} 
 h1 {
     font-size: 45px;
     color: #ad0;
@@ -35,9 +35,9 @@ h1:hover {
 .tile {
   position: relative;
   float: left;
-  margin: 10px;
-  width: 100px;
-  height: 100px;
+  margin: 7px;
+  width: 75px;
+  height: 75px;
   cursor: pointer;
   border: 2px solid #222;
   border-radius: 10px;
@@ -51,11 +51,11 @@ h1:hover {
 .side {
   position: absolute;
   text-align: center;
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   border-radius: 10px;
   box-shadow: 5px 5px 10px #000;
-  line-height: 100px;
+  line-height: 75px;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ie-backface-visibility: hidden;
