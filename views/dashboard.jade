@@ -1,0 +1,49 @@
+- if (!everyauth.loggedIn)
+    div(data-role='page')
+        div(data-role='header', data-position='fixed')
+            h1 Flag-Zigzag
+        div(data-role='content')
+            h2 Not Authenticated
+- else
+    div(data-role='page', id='dashboard')
+        div(data-role='header', data-position='fixed')
+            a(href='/', data-icon='home', data-iconpos='notext', data-direction='reverse') Dashboard
+            h1 Flag-Zigzag
+            a(href='#leaderboard', data-icon='star', data-iconpos='notext') Leaderboard
+        div(data-role='content')
+            - if (everyauth.twitter)
+                div(class='user-info')
+                    img(class='profil-image', src='#{everyauth.twitter.user.profile_image_url}')
+                    p Hello
+                        b  #{everyauth.twitter.user.name}
+                    small 
+                        a(href='http://twitter.com/#{everyauth.twitter.user.screen_name}') @#{everyauth.twitter.user.screen_name}
+                    div(style='clear:both')
+                    // p= JSON.stringify(everyauth.twitter.user)
+            ul(data-role='listview', data-inset='true')
+                li
+                    a(href='#memorize') Memorize
+                li
+                    a(href='#') GPS Questioning
+                li
+                    a(href='#') Colorstation
+                li
+                    a(href='#') Europe Map
+                li
+                    a(href='#') Texturize
+            h3 
+                a(href='/logout') Logout
+    div(data-role='page', id='memorize')
+        div(data-role='header', data-position='inline', data-position='fixed')
+            a(href='/', data-icon='home', data-iconpos='notext', data-direction='reverse') Dashboard
+            h1 Memorize
+            a(href='#leaderboard', data-icon='star', data-iconpos='notext') Leaderboard
+        div(data-role='content')
+            p Memorize
+    div(data-role='page', id='leaderboard')
+        div(data-role='header', data-position='inline', data-position='fixed')
+            a(href='/', data-icon='home', data-iconpos='notext', data-direction='reverse') Dashboard
+            h1 Leaderboard
+            a(href='#leaderboard', data-icon='star', data-iconpos='notext') Leaderboard
+        div(data-role='content')
+            p Leaderboard
