@@ -4,7 +4,6 @@ var resultMap,
     pairs = 0,
     countries = ["Germany", "China", "USA", "Russia", "Israel", "Spain"],
     board = '#board',
-    title = "Memory",
     isPending = false;
 
 $( document ).delegate("#memorize", "pageinit", function() {
@@ -17,17 +16,15 @@ function start() {
     moves = 0;
     lastTile = null;
     $(board).html("");
-    resultMap = createMemoryBoard(countries, board, title);
+    resultMap = createMemoryBoard(countries, board);
     isPending = false;
 }
 
-function createMemoryBoard(countries, board, title) {
+function createMemoryBoard(countries, board) {
     var x,
         map = {},
         tiles = createTiles(countries, 2),
-        clear = $("<div>").css("clear", "both"),
-        heading = $("<h1>").html(title).click(restart);
-    $(board).append(heading);
+        clear = $("<div>").css("clear", "both");
     for (x = 0; x < tiles.length; x++) {
         map[x] = tiles[x].country;
         $(board).append(tiles[x].html.attr('id', x));
