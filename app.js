@@ -79,6 +79,7 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/login', routes.login);
 app.get('/dashboard', routes.dashboard);
 app.get('/memorize', routes.memorize);
 
