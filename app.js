@@ -6,7 +6,12 @@ var express = require('express')
   , everyauth = require('everyauth')
   , conf = require('./conf')
   , db = require('dirty')('user.db') // read 'user.db' file into memory or create one if not present
-  , routes = require('./routes');
+  , routes = require('./routes')
+  , logger = require('winston')
+  , loggly = require('winston-loggly');  // Requiring `winston-loggly` will expose `winston.transports.Loggly`
+
+logger.add(logger.transports.File, { filename: 'log.log' });
+logger.add(logger.transports.Loggly, conf.loggly);
 
 var port = process.env.C9_PORT || process.env.PORT || 3000; // process.env.C9_PORT is for c9.io, process.env.PORT is for heroku, 3000 for everything else
 
@@ -16,7 +21,7 @@ everyauth.everymodule // delivers the correct session for every http request
         callback(null, db.get(id));
     })
     .moduleErrback( function (err) {
-        console.log("Internal error '" + err + "' on authentication: ");
+        logger.error("Internal error '" + err + "' on authentication: ");
     });
     
 everyauth.twitter
@@ -59,13 +64,13 @@ app.configure(function(){
     app.set('view engine', 'jade');
     app.use(express.cookieParser()); // allows dealing with cookies
     app.use(express.session({secret: 'fsln12team3'})); //passphrase to hash the session
+    app.use(everyauth.middleware()); // allows express helpers determining the login status or accessing user details
+    everyauth.helpExpress(app); // allows using helper methods in express views (like everyauth.loggedIn)
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
     app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
-    app.use(everyauth.middleware()); // allows express helpers determining the login status or accessing user details
-    everyauth.helpExpress(app); // allows using helper methods in express views (like everyauth.loggedIn)
 });
 
 app.configure('development', function(){
@@ -84,5 +89,5 @@ app.get('/dashboard', routes.dashboard);
 app.get('/memorize', routes.memorize);
 
 app.listen(port, function(){
-    console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+    logger.info("Express server listening on port " + app.address().port + " in " + app.settings.env + " mode");
 });
