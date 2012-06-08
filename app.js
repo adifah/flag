@@ -10,14 +10,14 @@ var express = require('express')
   , logger = require('winston')
   , loggly = require('winston-loggly');  // Requiring `winston-loggly` will expose `winston.transports.Loggly`
 
-logger.add(logger.transports.File, { filename: 'log.log' });
-logger.add(logger.transports.Loggly, conf.loggly);
+logger.add(logger.transports.File, conf.logger.file);
+logger.add(logger.transports.Loggly, conf.logger.loggly);
 
 var port = process.env.C9_PORT || process.env.PORT || 3000; // process.env.C9_PORT is for c9.io, process.env.PORT is for heroku, 3000 for everything else
 
 everyauth.everymodule // delivers the correct session for every http request
     .findUserById( function (id, callback) {
-        console.log("find user: " + id);
+        console.log("search user: " + id);
         callback(null, db.get(id));
     })
     .moduleErrback( function (err) {
@@ -53,7 +53,7 @@ function createUser(source, sourceUser) {
     return user;
 }
 
-everyauth.debug = true;
+everyauth.debug = false;
 
 var app = module.exports = express.createServer();
 
