@@ -17,10 +17,19 @@ var port = process.env.C9_PORT || process.env.PORT || 3000; // process.env.C9_PO
 
 everyauth.debug = false;
 
+// start server
 var app = module.exports = express.createServer();
 
-// Configuration
+// connect socket.io to express
+var io = require('socket.io').listen(app);
 
+// set socket protocol to xhr-polling (no websocket support from c9.io or heroku yet
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
+
+// Configuration
 app.configure(function(){
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
@@ -43,8 +52,15 @@ app.configure('production', function(){
     app.use(express.errorHandler());
 });
 
-// Routes
+// Sockets
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 
+// Routes
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.get('/dashboard', routes.dashboard);
