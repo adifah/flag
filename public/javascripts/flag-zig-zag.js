@@ -4,10 +4,17 @@ $( document ).delegate("#dashboard", "pageinit", function() {
     if(socket == null) {
         console.log('connecting to socket.io');
         socket = io.connect();
+        socket.on('newGame', function (data) {
+            console.log("newGame: " + data);
+            start();
+        });
     }
 });
 
-socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('score', 10);
-});
+function submitScore(score) {
+    socket.emit('score', score);   
+}
+
+function submitStart(data) {
+    socket.emit('start', data);
+}

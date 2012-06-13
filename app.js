@@ -57,9 +57,12 @@ app.configure('production', function(){
 // Sockets
 io.sockets.on('connection', function (socket) {
     var twitterId = socket.handshake.session.auth.twitter.user.id;
-    socket.emit('news', { hello: 'world' });
+    socket.on('start', function (data) {
+        logger.info("user " + twitterId + " starts game " + data.game);
+        socket.emit('newGame', { 'game': data.game });
+    });
     socket.on('score', function (data) {
-        logger.info("user: " + twitterId + " score: " + data);
+        logger.info("user " + twitterId + " scores " + data);
     });
 });
 // set authorization for socket.io, only users with a cookie containing an express sid are accepted
@@ -76,7 +79,7 @@ io.set('authorization', function (data, accept) {
                 logger.info("no session");
                 accept('Error', false);
             } else {
-                if(!session.auth.loggedIn) {
+                if(!session.auth) {
                     logger.info("user not logged in");
                     accept('Error', false);
                 } else {
