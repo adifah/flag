@@ -8,6 +8,7 @@ var resultMap,
 
 $( document ).delegate("#memorize", "pageinit", function() {
   console.log('memorize page was just created by jQuery Mobile!');
+  socket.emit('my other event', { my: 'memorize' });
   start();
 });
 

@@ -8,6 +8,8 @@ var express = require('express')
   , conf = require('./conf')
   , routes = require('./routes')
   , logger = require('winston')
+  , connect = require('express/node_modules/connect')
+  , sessionStore = new connect.session.MemoryStore
   , loggly = require('winston-loggly');  // Requiring `winston-loggly` will expose `winston.transports.Loggly`
 
 logger.add(logger.transports.File, conf.logger.file);
@@ -34,7 +36,7 @@ app.configure(function(){
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.cookieParser()); // allows dealing with cookies
-    app.use(express.session({secret: 'fsln12team3'})); //passphrase to hash the session
+    app.use(express.session({secret: 'fsln12team3', store: sessionStore})); //passphrase to hash the session
     app.use(everyauth.middleware()); // allows express helpers determining the login status or accessing user details
     everyauth.helpExpress(app); // allows using helper methods in express views (like everyauth.loggedIn)
     app.use(express.bodyParser());
@@ -54,10 +56,41 @@ app.configure('production', function(){
 
 // Sockets
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+    var twitterId = socket.handshake.session.auth.twitter.user.id;
+    socket.emit('news', { hello: 'world' });
+    socket.on('score', function (data) {
+        logger.info("user: " + twitterId + " score: " + data);
+    });
+});
+// set authorization for socket.io, only users with a cookie containing an express sid are accepted
+io.set('authorization', function (data, accept) {
+    if (data.headers.cookie) {
+        logger.info("cookie: " + data.headers.cookie);
+        
+        data.cookie = connect.utils.parseCookie(data.headers.cookie);
+        data.sessionID = data.cookie['connect.sid'];
+        // (literally) get the session data from the session store
+        sessionStore.get(data.sessionID, function (err, session) {
+            if (err || !session) {
+                // if we cannot grab a session, turn down the connection
+                logger.info("no session");
+                accept('Error', false);
+            } else {
+                if(!session.auth.loggedIn) {
+                    logger.info("user not logged in");
+                    accept('Error', false);
+                } else {
+                    // save the session data and accept the connection
+                    logger.info("accept: ");
+                    data.session = session;
+                    accept(null, true);
+                }
+            }
+        });
+    } else {
+        logger.info("no cookie");
+       return accept('No cookie transmitted.', false);
+    }
 });
 
 // Routes
