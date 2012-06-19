@@ -9,13 +9,17 @@ exports.addUser = function(id, data) {
 };
 
 exports.setScore = function(id, data) {
-    db.set(id, data);
+    var user = db.get(id);
+    var score = user.score;
+    if(data.score > score) {
+        db.set(id, data);
+    }
 }
 
 exports.incrementLogins = function(id) {
     var user = db.get(id);
     var logins = user.logins;
-    if(isNaN(logins)) { //broken
+    if(logins == null) { //broken
         logins = 0;
     }
     db.set(id, {'logins': ++logins});
