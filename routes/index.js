@@ -1,4 +1,5 @@
 var logger = require('winston');
+var users = require('../users');
 /*
  * GET home page.
  */
@@ -25,6 +26,15 @@ exports.dashboard = function(req, res){
 exports.memorize = function(req, res){
     render('memorize', { title: 'Flag-Zigzag Memorize' }, req, res);
 };
+
+exports.leaderboard = function(req, res){
+    render('leaderboard', { title: 'Flag-Zigzag Leaderboard', highscores: getHighscores(req) }, req, res);
+};
+
+var getHighscores = function (req) {
+    // get game name here
+    return users.getHighscores("gameName");
+}
 
 var render = function (view, vars, req, res) {
     // check if user is logged in

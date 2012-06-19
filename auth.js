@@ -20,12 +20,8 @@ everyauth.twitter
     })
     .findOrCreateUser( function (sess, accessToken, accessSecret, twitUser) {
         // check if a user with this twitter id already exists in tht db
+        users.setUser(twitUser.id, createUser('twitter', twitUser));
         var user = users.getUser(twitUser.id);
-        if(user === undefined) {
-            console.log("create user: " + twitUser.id);
-            users.addUser(twitUser.id, createUser('twitter', twitUser));
-            user = users.getUser(twitUser.id);
-        }
         users.incrementLogins(twitUser.id);
         console.log("return user: " + twitUser.id + " (" + user.logins + " logins)");
         return user;
@@ -36,6 +32,5 @@ function createUser(source, sourceUser) {
     var user = {};
     user['id'] = sourceUser.id;
     user[source] = sourceUser;
-    user['logins'] = 0;
     return user;
 }

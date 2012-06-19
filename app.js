@@ -103,6 +103,7 @@ io.set('authorization', function (data, accept) {
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.get('/dashboard', routes.dashboard);
+app.get('/leaderboard', routes.leaderboard);
 app.get('/memorize', routes.memorize);
 
 app.listen(port, function(){
