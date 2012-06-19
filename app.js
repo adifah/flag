@@ -10,6 +10,7 @@ var express = require('express')
   , logger = require('winston')
   , connect = require('express/node_modules/connect')
   , sessionStore = new connect.session.MemoryStore
+  , users = require('./users')
   , loggly = require('winston-loggly');  // Requiring `winston-loggly` will expose `winston.transports.Loggly`
 
 logger.add(logger.transports.File, conf.logger.file);
@@ -59,10 +60,12 @@ io.sockets.on('connection', function (socket) {
     var twitterId = socket.handshake.session.auth.twitter.user.id;
     socket.on('start', function (data) {
         logger.info("user " + twitterId + " starts game " + data.game);
-        socket.emit('newGame', { 'game': data.game });
+        socket.emit('newGame', { 'gameId': 1234, 'game': data.game });
     });
     socket.on('score', function (data) {
-        logger.info("user " + twitterId + " scores " + data);
+        var user = users.getUser(twitterId);
+        logger.info("user " + twitterId + " needs " + data.moves + " moves");
+        users.setScore(twitterId, {'score': data.moves});
     });
 });
 // set authorization for socket.io, only users with a cookie containing an express sid are accepted

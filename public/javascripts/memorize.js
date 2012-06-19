@@ -7,8 +7,8 @@ var resultMap,
     isPending = false;
 
 $( document ).delegate("#memorize", "pageinit", function() {
-  console.log('memorize page was just created by jQuery Mobile!');
-  submitStart({game: 'memorize'});
+    console.log('memorize page was just created by jQuery Mobile!');
+    submitStart({game: 'memorize'});
 });
 
 function start() {
@@ -111,7 +111,7 @@ function maskTile(tile) {
 function finish() {
     setTimeout(function () {
         alert("you've finished the game in " + moves + " moves (+" + (moves - countries.length) + ")");
-        submitScore(moves);
+        submitScore({'moves': moves});
         restart();
     }, 1000);
 }

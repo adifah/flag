@@ -1,4 +1,5 @@
 var socket = null;
+var gameId = null;
 
 $( document ).delegate("#dashboard", "pageinit", function() {
     if(socket == null) {
@@ -6,15 +7,23 @@ $( document ).delegate("#dashboard", "pageinit", function() {
         socket = io.connect();
         socket.on('newGame', function (data) {
             console.log("newGame: " + data);
+            gameId = data.gameId;
             start();
         });
     }
 });
 
-function submitScore(score) {
-    socket.emit('score', score);   
+function submitScore(data) {
+    data.gameId = gameId;
+    socket.emit('score', data);   
 }
 
 function submitStart(data) {
+    gameId = null;
     socket.emit('start', data);
+}
+
+function submitMove(data) {
+    data.gameId = gameId;
+    socket.emit('move', data);
 }

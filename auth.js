@@ -1,12 +1,12 @@
 var everyauth = require('everyauth')
   , logger = require('winston')
   , conf = require('./conf')
-  , db = require('dirty')('user.db'); // read 'user.db' file into memory or create one if not present
+  , users = require('./users'); // read 'user.db' file into memory or create one if not present
 
 everyauth.everymodule // delivers the correct session for every http request
     .findUserById( function (id, callback) {
         console.log("search user: " + id);
-        callback(null, db.get(id));
+        callback(null, users.getUser(id));
     })
     .moduleErrback( function (err) {
         logger.error("Internal error '" + err + "' on authentication: ");
@@ -20,14 +20,13 @@ everyauth.twitter
     })
     .findOrCreateUser( function (sess, accessToken, accessSecret, twitUser) {
         // check if a user with this twitter id already exists in tht db
-        var user = db.get(twitUser.id);
+        var user = users.getUser(twitUser.id);
         if(user === undefined) {
             console.log("create user: " + twitUser.id);
-            db.set(twitUser.id, createUser('twitter', twitUser));
-            user = db.get(twitUser.id);
+            users.addUser(twitUser.id, createUser('twitter', twitUser));
+            user = users.getUser(twitUser.id);
         }
-        var logins = ++user.logins;
-        db.set(twitUser.id, {logins : logins});
+        users.incrementLogins(twitUser.id);
         console.log("return user: " + twitUser.id + " (" + user.logins + " logins)");
         return user;
     })
