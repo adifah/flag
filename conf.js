@@ -12,12 +12,12 @@ module.exports = {
             "inputToken": "55284070-4d63-418e-be8c-f84f9465c357",
             "json": true
         }
-    }
+    },
     "memory": {
         "level1" : {
             "pairs": 5,
             "firstCard": "flag",
-            "secondCard": "flag"
+            "secondCard": "flag",
             "pointsRequired": 0,
             "pointsForMatch": 50,
             "pointsForFail": -50
@@ -25,7 +25,7 @@ module.exports = {
         "level2" : {
             "pairs": 8,
             "firstCard": "flag",
-            "secondCard": "name"
+            "secondCard": "name",
             "pointsRequired": 250,
             "pointsForMatch": 50,
             "pointsForFail": -50
@@ -33,10 +33,27 @@ module.exports = {
         "level3" : {
             "pairs": 8,
             "firstCard": "flag",
-            "secondCard": "capital"
+            "secondCard": "capital",
             "pointsRequired": 650,
             "pointsForMatch": 50,
             "pointsForFail": -50
-        }
+        },
+        "countries" : [
+            {
+                "name": "Germany",
+                "flag": "/images/flags/germany.png",
+                "capital": "Berlin"
+            },
+            {
+                "name": "France",
+                "flag": "/images/flags/france.png",
+                "capital": "Paris"
+            },
+            {
+                "name": "Italy",
+                "flag": "/images/flags/italy.png",
+                "capital": "Rome"
+            }
+        ]
     }
 };
