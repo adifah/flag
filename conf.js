@@ -13,4 +13,30 @@ module.exports = {
             "json": true
         }
     }
+    "memory": {
+        "level1" : {
+            "pairs": 5,
+            "firstCard": "flag",
+            "secondCard": "flag"
+            "pointsRequired": 0,
+            "pointsForMatch": 50,
+            "pointsForFail": -50
+        },
+        "level2" : {
+            "pairs": 8,
+            "firstCard": "flag",
+            "secondCard": "name"
+            "pointsRequired": 250,
+            "pointsForMatch": 50,
+            "pointsForFail": -50
+        },
+        "level3" : {
+            "pairs": 8,
+            "firstCard": "flag",
+            "secondCard": "capital"
+            "pointsRequired": 650,
+            "pointsForMatch": 50,
+            "pointsForFail": -50
+        }
+    }
 };

@@ -60,6 +60,8 @@ io.sockets.on('connection', function (socket) {
     var twitterId = socket.handshake.session.auth.twitter.user.id;
     socket.on('start', function (data) {
         logger.info("user " + twitterId + " starts game " + data.game);
+        // create a new game instance with given data.level assigend to twitterId
+        // a given callback should emit the game details to the client
         socket.emit('newGame', { 'gameId': 1234, 'game': data.game });
     });
     socket.on('score', function (data) {
