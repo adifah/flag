@@ -4,10 +4,12 @@ var conf = require('./conf');
 var games = [];
 var idCounter = 0;
 
-createMemoryGame({level: 'level2'}, function(data) { console.log("game: ", data); });
-createMemoryGame({level: 'level3'}, function(data) { console.log("game: ", data); });
+/*
+    createMemoryGame({level: 'level2'}, function(data) { console.log("game: ", data); });
+    createMemoryGame({level: 'level3'}, function(data) { console.log("game: ", data); });
+*/
 
-function createMemoryGame(data, callback) {
+exports.createMemoryGame = function (data, callback) {
     var memoryGame = {};
     memoryGame.type = "memorize";    
     memoryGame.level = data.level;

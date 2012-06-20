@@ -1,5 +1,4 @@
 var socket = null;
-var gameId = null;
 
 $( document ).delegate("#dashboard", "pageinit", function() {
     if(socket == null) {
@@ -7,8 +6,7 @@ $( document ).delegate("#dashboard", "pageinit", function() {
         socket = io.connect();
         socket.on('newGame', function (data) {
             console.log("newGame: " + data);
-            gameId = data.gameId;
-            start();
+            start(data);
         });
     }
 });

@@ -11,6 +11,7 @@ var express = require('express')
   , connect = require('express/node_modules/connect')
   , sessionStore = new connect.session.MemoryStore
   , users = require('./users')
+  , games = require('./games')
   , loggly = require('winston-loggly');  // Requiring `winston-loggly` will expose `winston.transports.Loggly`
 
 logger.add(logger.transports.File, conf.logger.file);
@@ -62,7 +63,11 @@ io.sockets.on('connection', function (socket) {
         logger.info("user " + twitterId + " starts game " + data.game);
         // create a new game instance with given data.level assigend to twitterId
         // a given callback should emit the game details to the client
-        socket.emit('newGame', { 'gameId': 1234, 'game': data.game });
+        if(data.game === 'memorize') {
+            games.createMemoryGame(data, function(game) {
+                socket.emit('newGame', game);
+            });
+        }
     });
     socket.on('score', function (data) {
         var user = users.getUser(twitterId);

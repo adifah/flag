@@ -10,61 +10,56 @@ $( document ).delegate("#memorize", "pageinit", function() {
     $('#level1').click(function() {
         console.log('start memorize (level 1)');
         $('#levels').html("");
-        submitStart({game: 'memorize', level: 1});
+        submitStart({game: 'memorize', level: 'level1'});
     });
     $('#level2').click(function() {
         console.log('start memorize (level 2)');
         $('#levels').html("");
-        submitStart({game: 'memorize', level: 2});
+        submitStart({game: 'memorize', level: 'level2'});
     });
     $('#level3').click(function() {
         console.log('start memorize (level 3)');
         $('#levels').html("");
-        submitStart({game: 'memorize', level: 3});
+        submitStart({game: 'memorize', level: 'level3'});
     });
 });
 
-function start() {
+function start(data) {
     pairs = 0;
     moves = 0;
     lastTile = null;
     $(board).html("");
-    resultMap = createMemoryBoard(countries, board);
+    resultMap = createMemoryBoard(data, board);
     isPending = false;
 }
 
-function createMemoryBoard(countries, board) {
+function createMemoryBoard(data, board) {
     var x,
-        map = {},
-        tiles = createTiles(countries, 2),
+        map = [],
+        tiles = createTiles(data.deck),
         clear = $("<div>").css("clear", "both");
     for (x = 0; x < tiles.length; x++) {
-        map[x] = tiles[x].country;
+        map[x] = tiles[x];
         $(board).append(tiles[x].html.attr('id', x));
     }
     $(board).append(clear);
     return map;
 }
 
-function createTiles(countries, tileFrequency) {
+function createTiles(countries) {
     var x,
         tiles = [];
     for (x = 0; x < countries.length; x++) {
-        for (frequency = 0; frequency < tileFrequency; frequency++) {
-            tileIndex = x * tileFrequency + frequency;
-            tiles[tileIndex] = createTile(countries[x]);
-        }
+        tiles[x] = createTile(countries[x]);
     }
-    return shuffleTiles(tiles);
+    return tiles;
 }
 
 function createTile(country) {
-    var tile = {},
-        backSideHtml = $('<div>').addClass('back').addClass('side'),
+    var backSideHtml = $('<div>').addClass('back').addClass('side'),
         frontSideHtml = $('<div>').addClass('front').addClass('side').html("&nbsp;");
-    tile.html = $('<div>').addClass('tile').click(tileClick).append(frontSideHtml).append(backSideHtml);
-    tile.country = country;
-    return tile;
+    country.html = $('<div>').addClass('tile').click(tileClick).append(frontSideHtml).append(backSideHtml);
+    return country;
 }
 
 function tileClick() {
@@ -82,12 +77,12 @@ function tileClick() {
 }
 
 function checkMove(currentTile) {
-    if (getTileName(lastTile) === getTileName(currentTile)) {
+    if (getTileId(lastTile) === getTileId(currentTile)) {
         success(currentTile);
     } else {
         fail(currentTile);
     }
-    if (pairs === countries.length) {
+    if (pairs === resultMap.length/2) {
         finish();
     }
 }
@@ -110,7 +105,7 @@ function fail(currentTile) {
 }
 
 function unmaskTile(tile) {
-    tile.find(".back").html(resultMap[tile.attr('id')]);
+    tile.find(".back").html(getTileValue(tile));
 }
 
 function maskTile(tile) {
@@ -123,7 +118,7 @@ function maskTile(tile) {
 
 function finish() {
     setTimeout(function () {
-        alert("you've finished the game in " + moves + " moves (+" + (moves - countries.length) + ")");
+        alert("you've finished the game in " + moves + " moves (+" + (moves - resultMap.length/2) + ")");
         submitScore({'gameName': 'memorize', 'moves': moves});
         restart();
     }, 1000);
@@ -139,26 +134,14 @@ function restart() {
     }, 1000);
 }
 
-function getTileName(tile) {
-    return resultMap[getTileId(tile)];
+function getTileValue(tile) {
+    return resultMap[tile.attr('id')].value;
+}
+
+function getTileType(tile) {
+    return resultMap[tile.attr('id')].type;
 }
 
 function getTileId(tile) {
-    return tile.attr('id');
-}
-
-function shuffleTiles(tiles) {
-    return tiles.sort(randomSort);
-}
-
-/* http://freewebdesigntutorials.com/javaScriptTutorials/jsArrayObject/randomizeArrayElements.htm */
-function randomSort(a,b) {
-    // Get a random number between 0 and 10
-    var temp = parseInt( Math.random()*10 );
-    // Get 1 or 0, whether temp is odd or even
-    var isOddOrEven = temp%2;
-    // Get +1 or -1, whether temp greater or smaller than 5
-    var isPosOrNeg = temp>5 ? 1 : -1;
-    // Return -1, 0, or +1
-    return( isOddOrEven*isPosOrNeg );
+    return resultMap[tile.attr('id')].id;
 }
