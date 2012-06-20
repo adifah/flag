@@ -7,8 +7,21 @@ var resultMap,
     isPending = false;
 
 $( document ).delegate("#memorize", "pageinit", function() {
-    console.log('memorize page was just created by jQuery Mobile!');
-    submitStart({game: 'memorize'});
+    $('#level1').click(function() {
+        console.log('start memorize (level 1)');
+        $('#levels').html("");
+        submitStart({game: 'memorize', level: 1});
+    });
+    $('#level2').click(function() {
+        console.log('start memorize (level 2)');
+        $('#levels').html("");
+        submitStart({game: 'memorize', level: 2});
+    });
+    $('#level3').click(function() {
+        console.log('start memorize (level 3)');
+        $('#levels').html("");
+        submitStart({game: 'memorize', level: 3});
+    });
 });
 
 function start() {
