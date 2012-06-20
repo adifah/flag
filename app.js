@@ -65,7 +65,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('score', function (data) {
         var user = users.getUser(twitterId);
         logger.info("user " + twitterId + " needs " + data.moves + " moves");
-        users.setScore(twitterId, {'score': data.moves});
+        users.setScore(twitterId, data);
     });
 });
 // set authorization for socket.io, only users with a cookie containing an express sid are accepted
@@ -103,7 +103,7 @@ io.set('authorization', function (data, accept) {
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.get('/dashboard', routes.dashboard);
-app.get('/leaderboard', routes.leaderboard);
+app.get('/leaderboard/:gameName?', routes.leaderboard);
 app.get('/memorize', routes.memorize);
 
 app.listen(port, function(){

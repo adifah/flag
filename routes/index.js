@@ -33,7 +33,12 @@ exports.leaderboard = function(req, res){
 
 var getHighscores = function (req) {
     // get game name here
-    return users.getHighscores("gameName");
+    var gameName = req.params.gameName;
+    if(gameName==null) {
+        return null;   
+    } else {
+        return users.getHighscores({"gameName": gameName});
+    }
 }
 
 var render = function (view, vars, req, res) {

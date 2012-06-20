@@ -11,9 +11,16 @@
             h1 Leaderboard
             a(href='/leaderboard', data-icon='star', data-iconpos='notext') Leaderboard
         div(data-role='content')
-            p Leaderboard points
-            ol(data-role="listview", data-inset="true")
-                - for (var key in highscores)
-                    - var highscore = highscores[key]
-                    li= key
-                        span(class='ui-li-count')= highscore
+            - if (highscores!=null)
+                ol(data-role="listview", data-inset="true")
+                    - for (var key in highscores)
+                        - var highscore = highscores[key]
+                        li= key
+                            span(class='ui-li-count')= highscore
+            - else
+                div(data-role="controlgroup")
+                    a(href="/leaderboard/memorize", data-role="button") Memorize
+                    a(href="/leaderboard/gpsQuestioning", data-role="button") GPS Questioning
+                    a(href="/leaderboard/colorstation", data-role="button") Colorstation
+                    a(href="/leaderboard/europeMap", data-role="button") Europe Map
+                    a(href="/leaderboard/texturize", data-role="button") Texturize

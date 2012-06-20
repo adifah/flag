@@ -11,12 +11,15 @@ exports.setUser = function(id, data) {
 
 exports.setScore = function(id, data) {
     var user = db.get(id);
-    var score = user.score;
-    if(score == null) {
-        score = 0;
+    var gameName = data.gameName;
+    var gameData = user[gameName];
+    if(gameData == null) {
+        gameData = {"score": 0};
     }
-    if(data.score > score) {
-        set(id, {'score': data.score});
+    if(data.moves > gameData.score) {
+        var newHighscore = {};
+        newHighscore[gameName] = {"score": data.moves};
+        set(id, newHighscore);
     }
 }
 
@@ -34,16 +37,21 @@ exports.incrementLogins = function(id) {
 // returns an array of users descending by score for a given game
 exports.getHighscores = function(data) {
     var gameName = data.gameName;
+    console.log("gameName: " + gameName);
     var highscores = [];
     // get score from each user
     db.forEach(function(key, val) {
-        // TODO: check for gameName here
         var name = val.twitter.screen_name;
-        var score = val.score;
-        if(score == null) {
-            score = 0;
+        // only get points for the given game
+        var game = val[gameName];
+        // only add users that already played the game
+        if(game != null) {
+            var score = val[gameName].score;
+            if(score == null) {
+                score = 0;
+            }
+            highscores[name] = score;
         }
-        highscores[name] = score;
     });
     // sort users descending by score
     highscores.sort(function(a,b){return b-a});

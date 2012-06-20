@@ -111,7 +111,7 @@ function maskTile(tile) {
 function finish() {
     setTimeout(function () {
         alert("you've finished the game in " + moves + " moves (+" + (moves - countries.length) + ")");
-        submitScore({'moves': moves});
+        submitScore({'gameName': 'memorize', 'moves': moves});
         restart();
     }, 1000);
 }
