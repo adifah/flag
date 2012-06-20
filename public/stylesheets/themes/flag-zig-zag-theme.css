@@ -51,7 +51,7 @@
 .ui-bar-a select,
 .ui-bar-a textarea,
 .ui-bar-a button {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 }
 .ui-body-a,
 .ui-overlay-a {
@@ -59,6 +59,12 @@
 	color: #ffffff /*{a-body-color}*/;
 	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #444444 /*{a-body-shadow-color}*/;
 	background: #808080 /*{a-body-background-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #808080 /*{a-body-background-start}*/), to( #808080 /*{a-body-background-end}*/)); /* Saf4 , Chrome */
+	background-image: -webkit-linear-gradient( #808080 /*{a-body-background-start}*/, #808080 /*{a-body-background-end}*/); /* Chrome 10 , Saf5.1  */
+	background-image:    -moz-linear-gradient( #808080 /*{a-body-background-start}*/, #808080 /*{a-body-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #808080 /*{a-body-background-start}*/, #808080 /*{a-body-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #808080 /*{a-body-background-start}*/, #808080 /*{a-body-background-end}*/); /* Opera 11.10  */
+	background-image:         linear-gradient( #808080 /*{a-body-background-start}*/, #808080 /*{a-body-background-end}*/);
 }
 .ui-overlay-a {
 	background-image: none;
@@ -69,7 +75,7 @@
 .ui-body-a select,
 .ui-body-a textarea,
 .ui-body-a button {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 }
 
 .ui-body-a .ui-link-inherit {
@@ -82,15 +88,15 @@
 }
 
 .ui-body-a .ui-link:hover {
-	color: #2489CE /*{a-body-link-hover}*/;
+	color: #a8ce24 /*{a-body-link-hover}*/;
 }
 
 .ui-body-a .ui-link:active {
-	color: #2489CE /*{a-body-link-active}*/;
+	color: #a8ce24 /*{a-body-link-active}*/;
 }
 
 .ui-body-a .ui-link:visited {
-    color: #2489CE /*{a-body-link-visited}*/;
+    color: #a8ce24 /*{a-body-link-visited}*/;
 }
 
 .ui-btn-up-a {
@@ -145,7 +151,7 @@
 .ui-btn-up-a,
 .ui-btn-hover-a,
 .ui-btn-down-a {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 	text-decoration: none;
 }
 
@@ -191,7 +197,7 @@
 .ui-bar-b select,
 .ui-bar-b textarea,
 .ui-bar-b button {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 }
 .ui-body-b,
 .ui-overlay-b {
@@ -215,7 +221,7 @@
 .ui-body-b select,
 .ui-body-b textarea,
 .ui-body-b button {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 }
 
 .ui-body-b .ui-link-inherit {
@@ -291,7 +297,7 @@
 .ui-btn-up-b,
 .ui-btn-hover-b,
 .ui-btn-down-b {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 	text-decoration: none;
 }
 
@@ -339,7 +345,7 @@
 .ui-bar-c select,
 .ui-bar-c textarea,
 .ui-bar-c button {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 }
 .ui-body-c,
 .ui-overlay-c {
@@ -363,7 +369,7 @@
 .ui-body-c select,
 .ui-body-c textarea,
 .ui-body-c button {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 }
 
 .ui-body-c .ui-link-inherit {
@@ -439,7 +445,7 @@
 .ui-btn-up-c,
 .ui-btn-hover-c,
 .ui-btn-down-c {
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 	text-decoration: none;
 }
 
@@ -471,7 +477,7 @@ a.ui-link-inherit {
 	background-image:     -ms-linear-gradient( #d3fd9d /*{global-active-background-start}*/, #accf80 /*{global-active-background-end}*/); /* IE10 */
 	background-image:      -o-linear-gradient( #d3fd9d /*{global-active-background-start}*/, #accf80 /*{global-active-background-end}*/); /* Opera 11.10  */
 	background-image:         linear-gradient( #d3fd9d /*{global-active-background-start}*/, #accf80 /*{global-active-background-end}*/);
-	 font-family: calibri /*{global-font-family}*/;
+	  font-family: calibri /*{global-font-family}*/;
 }
 .ui-btn-active a.ui-link-inherit {
 	color: #000000 /*{global-active-color}*/;

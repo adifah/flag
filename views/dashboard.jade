@@ -1,12 +1,12 @@
 - if (!everyauth.loggedIn)
-    div(data-role='page')
+    div(data-role='page', data-theme="a")
         div(data-role='header', data-position='fixed')
             h1 Flag-Zigzag
-        div(data-role='content')
+        div(data-role='content', data-theme="a")
             h2 Not Authenticated
 - else
     div(data-role='page', id='dashboard', data-theme="a")
-        div(data-role='header', data-position='fixed', data-theme="a")
+        div(data-role='header', data-position='fixed')
             a(href='/', data-icon='home', data-iconpos='notext', data-direction='reverse') Dashboard
             h1 Flag-Zigzag
             a(href='/leaderboard', data-icon='star', data-iconpos='notext') Leaderboard
