@@ -28,7 +28,7 @@ exports.memorize = function(req, res){
 };
 
 exports.leaderboard = function(req, res){
-    render('leaderboard', { title: 'Flag-Zigzag Leaderboard', highscores: getHighscores(req) }, req, res);
+    render('leaderboard', { title: 'Flag-Zigzag Leaderboard', 'highscores': getHighscores(req), 'gameName': req.params.gameName }, req, res);
 };
 
 var getHighscores = function (req) {

@@ -12,12 +12,14 @@
             a(href='/leaderboard', data-icon='star', data-iconpos='notext') Leaderboard
         div(data-role='content')
             - if (highscores!=null)
+                p= 'Leaderboard for ' + gameName
                 ol(data-role="listview", data-inset="true")
                     - for (var key in highscores)
                         - var highscore = highscores[key]
                         li= key
                             span(class='ui-li-count')= highscore
             - else
+                p Please choose a game
                 div(data-role="controlgroup")
                     a(href="/leaderboard/memorize", data-role="button") Memorize
                     a(href="/leaderboard/gpsQuestioning", data-role="button") GPS Questioning
