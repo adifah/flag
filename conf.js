@@ -41,17 +41,17 @@ module.exports = {
         "countries" : [
             {
                 "name": "Germany",
-                "flag": "/images/flags/germany.png",
+                "flag": "/images/flags/Germany.png",
                 "capital": "Berlin"
             },
             {
                 "name": "France",
-                "flag": "/images/flags/france.png",
+                "flag": "/images/flags/France.png",
                 "capital": "Paris"
             },
             {
                 "name": "Italy",
-                "flag": "/images/flags/italy.png",
+                "flag": "/images/flags/Italien.png",
                 "capital": "Rome"
             }
         ]

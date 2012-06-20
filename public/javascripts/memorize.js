@@ -56,7 +56,13 @@ function createTiles(countries) {
 }
 
 function createTile(country) {
-    var backSideHtml = $('<div>').addClass('back').addClass('side'),
+    var value;
+    if(country.type === 'flag') {
+        value = '<img src="' + country.value + '" />';
+    } else {
+        value = country.value;
+    }
+    var backSideHtml = $('<div>').addClass('back').addClass('side').html(value),
         frontSideHtml = $('<div>').addClass('front').addClass('side').html("&nbsp;");
     country.html = $('<div>').addClass('tile').click(tileClick).append(frontSideHtml).append(backSideHtml);
     return country;
@@ -65,7 +71,6 @@ function createTile(country) {
 function tileClick() {
     thisTile = $(this);
     if (!thisTile.hasClass("flipped") && !isPending) {
-        unmaskTile(thisTile);
         thisTile.addClass("flipped");
         if (lastTile === null) {
             lastTile = thisTile;
@@ -102,10 +107,6 @@ function fail(currentTile) {
     maskTile(lastTile);
     maskTile(currentTile);
     lastTile = null;
-}
-
-function unmaskTile(tile) {
-    tile.find(".back").html(getTileValue(tile));
 }
 
 function maskTile(tile) {
