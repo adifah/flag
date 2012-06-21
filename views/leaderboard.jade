@@ -15,9 +15,9 @@
                 p= 'Leaderboard for ' + gameName
                 ol(data-role="listview", data-inset="true")
                     - for (var key in highscores)
-                        - var highscore = highscores[key]
-                        li= key
-                            span(class='ui-li-count')= highscore
+                        - var user = highscores[key]
+                        li= user.name
+                            span(class='ui-li-count')= user.score
             - else
                 p Please choose a game
                 div(data-role="controlgroup")
