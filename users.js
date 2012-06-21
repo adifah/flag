@@ -16,9 +16,9 @@ exports.setScore = function(id, data) {
     if(gameData == null) {
         gameData = {"score": 0};
     }
-    if(data.moves > gameData.score) {
+    if(data.score > gameData.score) {
         var newHighscore = {};
-        newHighscore[gameName] = {"score": data.moves};
+        newHighscore[gameName] = {"score": data.score};
         set(id, newHighscore);
     }
 }

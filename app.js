@@ -71,7 +71,7 @@ io.sockets.on('connection', function (socket) {
     });
     socket.on('score', function (data) {
         var user = users.getUser(twitterId);
-        logger.info("user " + twitterId + " needs " + data.moves + " moves");
+        logger.info("user " + twitterId + " finished with " + data.score + " points");
         users.setScore(twitterId, data);
     });
 });
