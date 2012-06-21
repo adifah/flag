@@ -112,6 +112,7 @@ app.get('/login', routes.login);
 app.get('/dashboard', routes.dashboard);
 app.get('/leaderboard/:gameName?', routes.leaderboard);
 app.get('/memorize', routes.memorize);
+app.get('/gpsQuestioning', routes.gpsQuestioning);
 
 app.listen(port, function(){
     logger.info("Express server listening on port " + app.address().port + " in " + app.settings.env + " mode");

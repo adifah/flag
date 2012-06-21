@@ -27,6 +27,10 @@ exports.memorize = function(req, res){
     render('memorize', { title: 'Flag-Zigzag Memorize' }, req, res);
 };
 
+exports.gpsQuestioning = function(req, res){
+    render('gpsQuestioning', { title: 'Flag-Zigzag GPS-Questioning' }, req, res);
+};
+
 exports.leaderboard = function(req, res){
     render('leaderboard', { title: 'Flag-Zigzag Leaderboard', 'highscores': getHighscores(req), 'gameName': req.params.gameName }, req, res);
 };
@@ -43,9 +47,10 @@ var getHighscores = function (req) {
 
 var render = function (view, vars, req, res) {
     // check if user is logged in
-    if(typeof req.session.auth == 'undefined') {
+    /*if(typeof req.session.auth == 'undefined') {
         res.redirect("/login");
     } else {
         res.render(view, vars);
-    }
+    }*/
+    res.render(view, vars);
 };
