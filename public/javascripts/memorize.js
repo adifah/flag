@@ -126,7 +126,9 @@ function maskTile(tile) {
 
 function finish() {
     setTimeout(function () {
-        alert("you've finished the game in " + moves + " moves (+" + (moves - resultMap.length/2) + ") with " + mistakes + " mistakes");
+        var points = ((resultMap.length/2) * 50) - (mistakes * 50);
+        points = points < 0 ? 0 : points;
+        alert("you've finished the game in " + moves + " moves with " + mistakes + " mistakes (" + points + " points)");
         submitScore({'gameName': 'memorize', 'moves': moves});
         restart();
     }, 1000);
