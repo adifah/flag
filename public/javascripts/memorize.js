@@ -57,14 +57,15 @@ function createTiles(countries) {
 }
 
 function createTile(country) {
-    var value;
+    var backValue;
+    var frontValue = '<img src="/images/flags/Euro.png" />';
     if(country.type === 'flag') {
-        value = '<img src="' + country.value + '" />';
+        backValue = '<img src="' + country.value + '" />';
     } else {
-        value = country.value;
+        backValue = country.value;
     }
-    var backSideHtml = $('<div>').addClass('back').addClass('side').html(value),
-        frontSideHtml = $('<div>').addClass('front').addClass('side').html("&nbsp;");
+    var backSideHtml = $('<div>').addClass('back').addClass('side').html(backValue),
+        frontSideHtml = $('<div>').addClass('front').addClass('side').html(frontValue);
     country.html = $('<div>').addClass('tile').click(tileClick).append(frontSideHtml).append(backSideHtml);
     return country;
 }
