@@ -2,24 +2,23 @@ var resultMap,
     lastTile = null,
     moves = 0,
     pairs = 0,
-    countries = ["Germany", "China", "USA", "Russia", "Israel", "Spain"],
     board = '#board',
     isPending = false;
 
 $( document ).delegate("#memorize", "pageinit", function() {
     $('#level1').click(function() {
         console.log('start memorize (level 1)');
-        $('#levels').html("");
+        $('#levels').css('display', 'none');
         submitStart({game: 'memorize', level: 'level1'});
     });
     $('#level2').click(function() {
         console.log('start memorize (level 2)');
-        $('#levels').html("");
+        $('#levels').css('display', 'none');
         submitStart({game: 'memorize', level: 'level2'});
     });
     $('#level3').click(function() {
         console.log('start memorize (level 3)');
-        $('#levels').html("");
+        $('#levels').css('display', 'none');
         submitStart({game: 'memorize', level: 'level3'});
     });
 });
@@ -131,7 +130,8 @@ function restart() {
         $(this).removeClass("flipped");
     });
     setTimeout(function () {
-        start();
+        $('#board').html("");
+        $('#levels').css('display', 'block');
     }, 1000);
 }
 
