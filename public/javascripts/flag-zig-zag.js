@@ -1,4 +1,5 @@
 var socket = null;
+var gameId = null;
 
 $( document ).delegate("#dashboard", "pageinit", function() {
     if(socket == null) {

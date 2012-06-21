@@ -119,7 +119,10 @@ function printOptions(data) {
             $(this).css('background-color','green');
             neighbours[index] = null;
             if(++correct === neighbours.length) {
-                alert("finisch (correct: " + correct + ", wrong: " + wrong + ")");
+                var points = 1400 - (50 * wrong);
+                points = points < 0 ? 0 : points;
+                submitScore({'gameName': 'gpsQuestioning', 'score': points});
+                alert("you've found all " + correct + " neighbours with " + wrong + " mistakes (" + points + " points)");
                 $('#neighbours').html("");
                 $('#levels').css('display', 'block');
             }
@@ -130,6 +133,7 @@ function printOptions(data) {
         $(this).unbind('click');
     });
 }
+
 /* http://freewebdesigntutorials.com/javaScriptTutorials/jsArrayObject/randomizeArrayElements.htm */
 function randomSort(a,b) {
     // Get a random number between 0 and 10

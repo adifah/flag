@@ -47,10 +47,9 @@ var getHighscores = function (req) {
 
 var render = function (view, vars, req, res) {
     // check if user is logged in
-    /*if(typeof req.session.auth == 'undefined') {
+    if(typeof req.session.auth == 'undefined') {
         res.redirect("/login");
     } else {
         res.render(view, vars);
-    }*/
-    res.render(view, vars);
+    }
 };
