@@ -2,6 +2,7 @@ var resultMap,
     lastTile = null,
     moves = 0,
     pairs = 0,
+    mistakes = 0,
     board = '#board',
     isPending = false;
 
@@ -26,6 +27,7 @@ $( document ).delegate("#memorize", "pageinit", function() {
 function start(data) {
     pairs = 0;
     moves = 0;
+    mistakes = 0;
     lastTile = null;
     $(board).html("");
     resultMap = createMemoryBoard(data, board);
@@ -103,6 +105,12 @@ function success(currentTile) {
 }
 
 function fail(currentTile) {
+    if(isTileKnown(currentTile)) {
+        mistakes++;
+    }
+    if(isTileKnown(lastTile)) {
+        mistakes++;
+    }
     maskTile(lastTile);
     maskTile(currentTile);
     lastTile = null;
@@ -118,7 +126,7 @@ function maskTile(tile) {
 
 function finish() {
     setTimeout(function () {
-        alert("you've finished the game in " + moves + " moves (+" + (moves - resultMap.length/2) + ")");
+        alert("you've finished the game in " + moves + " moves (+" + (moves - resultMap.length/2) + ") with " + mistakes + " mistakes");
         submitScore({'gameName': 'memorize', 'moves': moves});
         restart();
     }, 1000);
@@ -145,4 +153,14 @@ function getTileType(tile) {
 
 function getTileId(tile) {
     return resultMap[tile.attr('id')].id;
+}
+
+function isTileKnown(tile) {
+    var card = resultMap[tile.attr('id')];
+    if(card.known == null) {
+        card.known = true;
+        return false;
+    } else {
+        return true;   
+    }
 }
