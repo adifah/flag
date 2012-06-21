@@ -53,6 +53,36 @@ module.exports = {
                 "name": "Italy",
                 "flag": "/images/flags/Italien.png",
                 "capital": "Rome"
+            },
+            {
+                "name": "Belgium",
+                "flag": "/images/flags/Belgium.png",
+                "capital": "Brussels"
+            },
+            {
+                "name": "Netherlands",
+                "flag": "/images/flags/Netherlands.png",
+                "capital": "Amsterdam"
+            },
+            {
+                "name": "United Kingdom",
+                "flag": "/images/flags/Great-Britain.png",
+                "capital": "London"
+            },
+            {
+                "name": "Turkey",
+                "flag": "/images/flags/Turkey.png",
+                "capital": "Ankara"
+            },
+            {
+                "name": "Switzerland",
+                "flag": "/images/flags/Switzerland.png",
+                "capital": "Bern"
+            },
+            {
+                "name": "Spain",
+                "flag": "/images/flags/Spain.png",
+                "capital": "Madrid"
             }
         ]
     }
