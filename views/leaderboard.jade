@@ -13,11 +13,16 @@
         div(data-role='content', data-theme="a")
             - if (highscores!=null)
                 p= 'Leaderboard for ' + gameName
+                ul(data-role="listview", data-inset="true")
+                    li Username
+                        span(class='ui-li-count') score
+                        span(class='ui-li-count leaderboard-time') time
                 ol(data-role="listview", data-inset="true")
                     - for (var key in highscores)
                         - var user = highscores[key]
                         li= user.name
                             span(class='ui-li-count')= user.score
+                            span(class='ui-li-count leaderboard-time')= user.time
             - else
                 p Please choose a game
                 div(data-role="controlgroup")

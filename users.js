@@ -14,12 +14,19 @@ exports.setScore = function(id, data) {
     var gameName = data.gameName;
     var gameData = user[gameName];
     if(gameData == null) {
-        gameData = {"score": 0};
+        gameData = {"score": 0, "time": 0};
     }
     if(data.score > gameData.score) {
         var newHighscore = {};
-        newHighscore[gameName] = {"score": data.score};
+        newHighscore[gameName] = {"score": data.score, "time": data.time};
         set(id, newHighscore);
+    }
+    if(data.score == gameData.score) {
+        if(data.time < gameData.time) {
+            var newHighscore = {};
+            newHighscore[gameName] = {"score": data.score, "time": data.time};
+            set(id, newHighscore);
+        }
     }
 }
 
@@ -49,18 +56,32 @@ exports.getHighscores = function(data) {
             var user = {};
             user.name = val.twitter.screen_name;
             user.score = val[gameName].score;
+            user.time = val[gameName].time;
             if(user.score == null) {
                 user.score = 0;
+            }
+            if(user.time == null) {
+                user.time = 0;
             }
             highscores.push(user);
         }
     });
     // sort users descending by score
     highscores.sort(function(a,b){
-        if (a.score > b.score)
+        if (a.score > b.score) {
             return -1;
-        if (a.score < b.score)
+        }
+        if (a.score < b.score) {
             return 1;
+        }
+        if (a.score == b.score) {
+            if (a.time > b.time) {
+                return 1;
+            }
+            if (a.time < b.time) {
+                return -1;
+            }
+        }
         return 0;
     });
     return highscores;

@@ -1,5 +1,6 @@
 var socket = null;
 var gameId = null;
+var startTime = 0;
 
 $( document ).delegate("#dashboard", "pageinit", function() {
     if(socket == null) {
@@ -7,6 +8,7 @@ $( document ).delegate("#dashboard", "pageinit", function() {
         socket = io.connect();
         socket.on('newGame', function (data) {
             console.log("newGame: " + data);
+            startTime = new Date().getTime();
             if(data.type == "memorize") {
                 startMemorize(data);
             }
@@ -20,6 +22,7 @@ $( document ).delegate("#dashboard", "pageinit", function() {
 
 function submitScore(data) {
     data.gameId = gameId;
+    data.time = (new Date().getTime() - startTime) / 1000;
     socket.emit('score', data);   
 }
 
