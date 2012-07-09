@@ -1,6 +1,7 @@
 var conf = require('./conf');
 
 // in-memory game spooler
+var europeCountries = [];
 var games = [];
 var idCounter = 0;
 
@@ -8,6 +9,20 @@ var idCounter = 0;
     createMemoryGame({level: 'level2'}, function(data) { console.log("game: ", data); });
     createMemoryGame({level: 'level3'}, function(data) { console.log("game: ", data); });
 */
+
+exports.init = function () {
+    getEuropeCountries();
+}
+
+function getEuropeCountries() {
+    var europeCountriesUrl = "http://api.geonames.org/childrenJSON?geonameId=6255148&username=adifah"
+    $.getJSON(europeCountriesUrl, function(data) {
+        $.each(data.geonames, function(key, value) {
+            europeCountries.push(value.name);
+            europeCountryCodes.push(value.countryCode);
+        });
+    });
+}
 
 exports.createMemoryGame = function (data, callback) {
     var memoryGame = {};
@@ -48,6 +63,23 @@ function getRandomCountries(countries, count) {
     }
     return result;
 }
+
+exports.createGpsQuestioningGame = function (data, callback) {
+    var gpsQuestioningGame = {};
+    gpsQuestioningGame.type = "gpsQuestioning";    
+    gpsQuestioningGame.level = data.level;
+    gpsQuestioningGame.id = ++idCounter;
+    gpsQuestioningGame.levelConf = conf.gpsQuestioning[gpsQuestioningGame.level];
+    // gpsQuestioningGame.countries = createCountries(levelConf);
+    // add game to game spooler (could be a memory leak in long term)
+    games[gpsQuestioningGame.id] = gpsQuestioningGame;
+    callback(gpsQuestioningGame);
+}
+
+function createCountries(gpsQuestioningGame) {
+    
+}
+
 
 /*
  * shuffle function using Fisher-Yates algorithm

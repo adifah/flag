@@ -68,6 +68,11 @@ io.sockets.on('connection', function (socket) {
                 socket.emit('newGame', game);
             });
         }
+        if(data.game === 'gpsQuestioning') {
+            games.createGpsQuestioningGame(data, function(game) {
+                socket.emit('newGame', game);
+            });
+        }
     });
     socket.on('score', function (data) {
         var user = users.getUser(twitterId);

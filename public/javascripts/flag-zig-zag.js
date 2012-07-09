@@ -7,10 +7,16 @@ $( document ).delegate("#dashboard", "pageinit", function() {
         socket = io.connect();
         socket.on('newGame', function (data) {
             console.log("newGame: " + data);
-            start(data);
+            if(data.type == "memorize") {
+                startMemorize(data);
+            }
+            if(data.type == "gpsQuestioning") {
+                startGpsQuestioning(data);
+            }
         });
     }
 });
+
 
 function submitScore(data) {
     data.gameId = gameId;

@@ -24,7 +24,7 @@ $( document ).delegate("#memorize", "pageinit", function() {
     });
 });
 
-function start(data) {
+function startMemorize(data) {
     pairs = 0;
     moves = 0;
     mistakes = 0;

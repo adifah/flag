@@ -13,6 +13,26 @@ module.exports = {
             "json": true
         }
     },
+    "gpsQuestioning": {
+        "level1" : {
+            "options" : 10,
+            "pointsForCorrectCountry" : 200,
+            "pointsForFail" : -50,
+            "pointsRequired" : 0
+        },
+        "level2" : {
+            "options" : 10,
+            "pointsForCorrectCountry" : 200,
+            "pointsForFail" : -50,
+            "pointsRequired" : 500  
+        },
+        "level3" : {
+            "options" : 14,
+            "pointsForCorrectCountry" : 200,
+            "pointsForFail" : -50,
+            "pointsRequired" : 1000
+        }
+    },
     "memory": {
         "level1" : {
             "pairs": 5,

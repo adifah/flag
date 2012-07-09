@@ -6,25 +6,31 @@ var correct = 0;
 var europeCountryCodes= [];
 var currentCountryCode = null;
 var currentCountryName = null;
+var levelConf = null;
 
 $( document ).delegate("#gpsQuestioning", "pageinit", function() {
     getEuropeCountries();
     $('#level1').click(function() {
         console.log('start gps (level 1)');
         $('#levels').css('display', 'none');
-        geolocation();
+        submitStart({game: 'gpsQuestioning', level: 'level1'});
     });
     $('#level2').click(function() {
         console.log('start gps (level 2)');
         $('#levels').css('display', 'none');
-        geolocation();
+        submitStart({game: 'gpsQuestioning', level: 'level2'});
     });
     $('#level3').click(function() {
         console.log('start gps (level 3)');
         $('#levels').css('display', 'none');
-        geolocation();
+        submitStart({game: 'gpsQuestioning', level: 'level3'});
     });
 });
+
+function startGpsQuestioning(data) {
+    levelConf = data.levelConf;
+    geolocation();
+}
 
 function getEuropeCountries() {
     europeCountries = [];
@@ -96,7 +102,8 @@ function printOptions(data) {
       }
     }
     europeCountries.sort(randomSort);
-    for(var i=0;i<14;i++) {
+    
+    for(var i=0;i<levelConf.options;i++) {
         if(i<neighbours.length) {
             options[i] = neighbours[i];                
         } else {
@@ -119,7 +126,8 @@ function printOptions(data) {
             $(this).css('background-color','green');
             neighbours[index] = null;
             if(++correct === neighbours.length) {
-                var points = 1400 - (50 * wrong);
+                var points = levelConf.pointsForCorrectCountry * correct + (levelConf.pointsForFail * wrong)
+                //var points = 1400 - (50 * wrong);
                 points = points < 0 ? 0 : points;
                 submitScore({'gameName': 'gpsQuestioning', 'score': points});
                 alert("you've found all " + correct + " neighbours with " + wrong + " mistakes (" + points + " points)");
