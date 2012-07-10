@@ -15,18 +15,21 @@ module.exports = {
     },
     "gpsQuestioning": {
         "level1" : {
+            "level" : 1,
             "options" : 10,
             "pointsForCorrectCountry" : 200,
             "pointsForFail" : -50,
             "pointsRequired" : 0
         },
         "level2" : {
+            "level" : 2,
             "options" : 10,
             "pointsForCorrectCountry" : 200,
             "pointsForFail" : -50,
             "pointsRequired" : 500  
         },
         "level3" : {
+            "level" : 3,
             "options" : 14,
             "pointsForCorrectCountry" : 200,
             "pointsForFail" : -50,
@@ -35,6 +38,7 @@ module.exports = {
     },
     "memory": {
         "level1" : {
+            "level": 1,
             "pairs": 5,
             "firstCard": "flag",
             "secondCard": "flag",
@@ -43,6 +47,7 @@ module.exports = {
             "pointsForFail": -50
         },
         "level2" : {
+            "level": 2,
             "pairs": 8,
             "firstCard": "flag",
             "secondCard": "name",
@@ -51,6 +56,7 @@ module.exports = {
             "pointsForFail": -50
         },
         "level3" : {
+            "level": 3,
             "pairs": 8,
             "firstCard": "flag",
             "secondCard": "capital",

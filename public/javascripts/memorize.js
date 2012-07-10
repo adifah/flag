@@ -132,7 +132,7 @@ function finish() {
         var points = ((resultMap.length/2) * levelConf.pointsForMatch) + (mistakes * levelConf.pointsForFail);
         points = points < 0 ? 0 : points;
         alert("you've finished the game in " + moves + " moves with " + mistakes + " mistakes (" + points + " points)");
-        submitScore({'gameName': 'memorize', 'score': points});
+        submitScore({'gameName': 'memorize', 'score': points, 'level': levelConf.level});
         restart();
     }, 1000);
 }

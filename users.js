@@ -6,28 +6,74 @@ exports.getUser = function(id) {
 
 exports.setUser = function(id, data) {
     set(id, data);   
-}
+};
 
 
 exports.setScore = function(id, data) {
     var user = db.get(id);
     var gameName = data.gameName;
+
+    // get gameData or init it
     var gameData = user[gameName];
     if(gameData == null) {
         gameData = {"score": 0, "time": 0};
     }
-    if(data.score > gameData.score) {
-        var newHighscore = {};
-        newHighscore[gameName] = {"score": data.score, "time": data.time};
-        set(id, newHighscore);
+    
+    // get levelData or init it
+    var levelData = gameData[data.level];
+    if(levelData == null) {
+        levelData = {"score": 0, "time": 0};
     }
-    if(data.score == gameData.score) {
-        if(data.time < gameData.time) {
-            var newHighscore = {};
-            newHighscore[gameName] = {"score": data.score, "time": data.time};
-            set(id, newHighscore);
+    
+    // set level highscore (and recalculate total game highscore)
+    if(data.score > levelData.score) {
+        setLevelHighscore(id, data, gameData);
+    }
+    if(data.score == levelData.score) {
+        if(data.time < levelData.time) {
+            setLevelHighscore(id, data, gameData);
         }
     }
+};
+
+function setLevelHighscore(id, data, gameData) {
+    var newHighscore = {};
+    newHighscore[data.gameName] = gameData;
+    newHighscore[data.gameName][data.level] = {"score": data.score, "time": data.time};
+    set(id, newHighscore);
+    // if levelHighscore changed, recalculate the total game highscore
+    setGameHighscore(id, data);
+}
+
+function setGameHighscore(id, data) {
+    var user = db.get(id),
+        gameName = data.gameName,
+        gameData = user[gameName],
+        totalScore = 0,
+        totalTime = 0;
+        
+    // check if user already collect some points
+    if(gameData == null) {
+        gameData = {"score": 0, "time": 0};
+    }
+        
+    // iterate over all level highscores    
+    for(var i=1; i<=3; i++) {
+        var currentLevel = gameData[i] || null;
+        if(currentLevel != null) {
+            var levelScore = currentLevel.score || 0;
+            var levelTime = currentLevel.time || 0;
+            totalScore += levelScore;
+            totalTime += levelTime;
+        }
+    }
+    
+    // set the new total highscore
+    var newHighscore = {};
+    newHighscore[gameName] = gameData;
+    newHighscore[gameName].score = totalScore;
+    newHighscore[gameName].time = totalTime;
+    set(id, newHighscore);  
 }
 
 // increments the logins count
@@ -85,7 +131,7 @@ exports.getHighscores = function(data) {
         return 0;
     });
     return highscores;
-}
+};
 
 var set = function (id, data) {
     var user = db.get(id);

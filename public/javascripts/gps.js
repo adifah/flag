@@ -129,7 +129,7 @@ function printOptions(data) {
                 var points = levelConf.pointsForCorrectCountry * correct + (levelConf.pointsForFail * wrong)
                 //var points = 1400 - (50 * wrong);
                 points = points < 0 ? 0 : points;
-                submitScore({'gameName': 'gpsQuestioning', 'score': points});
+                submitScore({'gameName': 'gpsQuestioning', 'score': points, 'level': levelConf.level});
                 alert("you've found all " + correct + " neighbours with " + wrong + " mistakes (" + points + " points)");
                 $('#neighbours').html("");
                 $('#levels').css('display', 'block');
