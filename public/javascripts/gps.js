@@ -8,7 +8,7 @@ var currentCountryCode = null;
 var currentCountryName = null;
 var levelConf = null;
 
-$( document ).delegate("#gpsQuestioning", "pageinit", function() {
+$( document ).delegate("#gpsQuestioning", "pageshow", function() {
     getEuropeCountries();
     $('#level1').click(function() {
         console.log('start gps (level 1)');
@@ -131,9 +131,9 @@ function printOptions(data) {
                 points = points < 0 ? 0 : points;
                 submitScore({'gameName': 'gpsQuestioning', 'score': points, 'level': levelConf.level});
                 alert("you've found all " + correct + " neighbours with " + wrong + " mistakes (" + points + " points)");
-                $('#neighbours').html("");
-                $('#levels').css('display', 'block');
-                //$.mobile.changePage( "gpsQuestioning", { reloadPage : true } );
+                //$('#neighbours').html("");
+                //$('#levels').css('display', 'block');
+                $.mobile.changePage( "gpsQuestioning", { reloadPage : true } );
             }
         } else {
             $(this).css('background-color','red');

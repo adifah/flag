@@ -7,7 +7,7 @@ var resultMap,
     isPending = false,
     levelConf = null;
 
-$( document ).delegate("#memorize", "pageinit", function() {
+$( document ).delegate("#memorize", "pageshow", function() {
     $('#level1').click(function() {
         console.log('start memorize (level 1)');
         $('#levels').css('display', 'none');
@@ -143,9 +143,9 @@ function restart() {
         $(this).removeClass("flipped");
     });
     setTimeout(function () {
-        $('#board').html("");
-        $('#levels').css('display', 'block');
-        //$.mobile.changePage( "memorize", { reloadPage : true } );
+        //$('#board').html("");
+        //$('#levels').css('display', 'block');
+        $.mobile.changePage( "memorize", { reloadPage : true } );
     }, 1000);
 }
 
