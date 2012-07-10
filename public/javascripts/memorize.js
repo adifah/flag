@@ -145,6 +145,7 @@ function restart() {
     setTimeout(function () {
         $('#board').html("");
         $('#levels').css('display', 'block');
+        //$.mobile.changePage( "memorize", { reloadPage : true } );
     }, 1000);
 }
 

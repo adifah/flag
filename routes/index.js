@@ -1,5 +1,7 @@
 var logger = require('winston');
 var users = require('../users');
+var conf = require('../conf');
+
 /*
  * GET home page.
  */
@@ -24,11 +26,11 @@ exports.dashboard = function(req, res){
 };
 
 exports.memorize = function(req, res){
-    render('memorize', { title: 'Flag-Zigzag Memorize' }, req, res);
+    render('memorize', { title: 'Flag-Zigzag Memorize', 'unlockedLevels': getUnlockedLevels(req, 'memorize') }, req, res);
 };
 
 exports.gpsQuestioning = function(req, res){
-    render('gpsQuestioning', { title: 'Flag-Zigzag GPS-Questioning' }, req, res);
+    render('gpsQuestioning', { title: 'Flag-Zigzag GPS-Questioning', 'unlockedLevels': getUnlockedLevels(req, 'gpsQuestioning') }, req, res);
 };
 
 exports.leaderboard = function(req, res){
@@ -43,6 +45,31 @@ var getHighscores = function (req) {
     } else {
         return users.getHighscores({"gameName": gameName});
     }
+}
+
+var getUnlockedLevels = function (req, gameName) {
+    var userScore = 0;
+    var unlockedLevels = 0;
+    if(typeof req.session.auth != 'undefined') {
+        var userId = req.session.auth.userId;
+        var user = users.getUser(userId);
+        if(user != null) {
+            var gameData = user[gameName];
+            if(gameData != null) {
+                userScore = gameData.score;
+            }
+        }
+    }
+    var pointsForLevelOne = conf[gameName]['level1'].pointsRequired;
+    var pointsForLevelTwo = conf[gameName]['level2'].pointsRequired;
+    var pointsForLevelThree = conf[gameName]['level3'].pointsRequired;
+    if(userScore>=pointsForLevelOne)
+        unlockedLevels = 1;
+    if(userScore>=pointsForLevelTwo)
+        unlockedLevels = 2;
+    if(userScore>=pointsForLevelThree)
+        unlockedLevels = 3;
+    return unlockedLevels;
 }
 
 var render = function (view, vars, req, res) {

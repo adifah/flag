@@ -29,7 +29,7 @@ exports.createMemoryGame = function (data, callback) {
     memoryGame.type = "memorize";    
     memoryGame.level = data.level;
     memoryGame.id = ++idCounter;
-    memoryGame.levelConf = conf.memory[memoryGame.level];
+    memoryGame.levelConf = conf.memorize[memoryGame.level];
     memoryGame.deck = createDeck(memoryGame.levelConf);
     // add game to game spooler (could be a memory leak in long term)
     games[memoryGame.id] = memoryGame;
@@ -38,7 +38,7 @@ exports.createMemoryGame = function (data, callback) {
 
 // create random card deck based on conf.js' level settings
 function createDeck(level) {
-    var countries = getRandomCountries(conf.memory.countries, level.pairs);
+    var countries = getRandomCountries(conf.memorize.countries, level.pairs);
     var cards = [];
     for(var i=0; i<countries.length; i++) {
         // get random country out of countries

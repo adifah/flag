@@ -133,6 +133,7 @@ function printOptions(data) {
                 alert("you've found all " + correct + " neighbours with " + wrong + " mistakes (" + points + " points)");
                 $('#neighbours').html("");
                 $('#levels').css('display', 'block');
+                //$.mobile.changePage( "gpsQuestioning", { reloadPage : true } );
             }
         } else {
             $(this).css('background-color','red');

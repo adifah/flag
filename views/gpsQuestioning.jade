@@ -14,8 +14,11 @@
             div(id='levels')
                 p Please select a level
                     div(data-role="controlgroup")
-                        a(href="#", data-role="button", id="level1") Level 1
-                        a(href="#", data-role="button", id="level2") Level 2
-                        a(href="#", data-role="button", id="level3") Level 3
+                        if(unlockedLevels > 0)
+                            a(href="#", data-role="button", id="level1") Level 1
+                        if(unlockedLevels > 1)       
+                            a(href="#", data-role="button", id="level2") Level 2
+                        if(unlockedLevels > 2)
+                            a(href="#", data-role="button", id="level3") Level 3
             div(id="neighbours")
             div(id="karte")

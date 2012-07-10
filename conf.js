@@ -36,7 +36,7 @@ module.exports = {
             "pointsRequired" : 1000
         }
     },
-    "memory": {
+    "memorize": {
         "level1" : {
             "level": 1,
             "pairs": 5,
