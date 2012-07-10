@@ -63,17 +63,25 @@ var getScore = function (req, gameName) {
 }
 
 var getUnlockedLevels = function (req, gameName) {
-    var unlockedLevels = 0;
+    var unlockedLevels = {};
     var userScore = getScore(req, gameName);
     var pointsForLevelOne = conf[gameName]['level1'].pointsRequired;
     var pointsForLevelTwo = conf[gameName]['level2'].pointsRequired;
     var pointsForLevelThree = conf[gameName]['level3'].pointsRequired;
-    if(userScore>=pointsForLevelOne)
-        unlockedLevels = 1;
-    if(userScore>=pointsForLevelTwo)
-        unlockedLevels = 2;
-    if(userScore>=pointsForLevelThree)
-        unlockedLevels = 3;
+    unlockedLevels.level = 0;
+    unlockedLevels.pointsForNextLevel = 0;
+    if(userScore>=pointsForLevelOne) {
+        unlockedLevels.level = 1;
+        unlockedLevels.pointsForNextLevel = pointsForLevelTwo;
+    }
+    if(userScore>=pointsForLevelTwo) {
+        unlockedLevels.level = 2;
+        unlockedLevels.pointsForNextLevel = pointsForLevelThree;
+    }
+    if(userScore>=pointsForLevelThree) {
+        unlockedLevels.level = 3;
+        unlockedLevels.pointsForNextLevel = -1;
+    }
     return unlockedLevels;
 }
 

@@ -16,11 +16,15 @@
                 h3(class='headline') Select a level
                 div(style='clear:both')
                 div(data-role="controlgroup")
-                    if(unlockedLevels > 0)
+                    if(unlockedLevels.level > 0)
                         a(href="#", data-role="button", id="level1") Level 1
-                    if(unlockedLevels > 1)       
+                    if(unlockedLevels.level > 1)       
                         a(href="#", data-role="button", id="level2") Level 2
-                    if(unlockedLevels > 2)
+                    if(unlockedLevels.level > 2)
                         a(href="#", data-role="button", id="level3") Level 3
+                - if (unlockedLevels.pointsForNextLevel == -1)
+                    h3 You have unlocked all levels. Try to improve your Highscore
+                - if (unlockedLevels.pointsForNextLevel>0)
+                    h3 You need #{unlockedLevels.pointsForNextLevel} points for unlocking level #{unlockedLevels.level+1}
             div(id='board')
 ​
