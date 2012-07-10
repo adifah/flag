@@ -76,8 +76,10 @@ function geolocation_action(position){
 function determineNeighbours(position) {
     var countryCodeUrl = "http://api.geonames.org/countryCodeJSON?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude + "&username=adifah";
     $.getJSON(countryCodeUrl, function(data) {
-        if(!currentCountryCode) {
+        // first level only geolocated country
+        if(levelConf.level == 1) {
             currentCountryCode = data.countryCode;
+        // other levels random country
         } else {
             currentCountryCode = europeCountryCodes[parseInt( Math.random()*50 )];
         }
