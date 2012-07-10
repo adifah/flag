@@ -29,8 +29,8 @@ exports.createMemoryGame = function (data, callback) {
     memoryGame.type = "memorize";    
     memoryGame.level = data.level;
     memoryGame.id = ++idCounter;
-    var levelConf = conf.memory[memoryGame.level];
-    memoryGame.deck = createDeck(levelConf);
+    memoryGame.levelConf = conf.memory[memoryGame.level];
+    memoryGame.deck = createDeck(memoryGame.levelConf);
     // add game to game spooler (could be a memory leak in long term)
     games[memoryGame.id] = memoryGame;
     callback(memoryGame);

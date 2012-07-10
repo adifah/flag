@@ -39,23 +39,23 @@ module.exports = {
             "firstCard": "flag",
             "secondCard": "flag",
             "pointsRequired": 0,
-            "pointsForMatch": 50,
+            "pointsForMatch": 100,
             "pointsForFail": -50
         },
         "level2" : {
             "pairs": 8,
             "firstCard": "flag",
             "secondCard": "name",
-            "pointsRequired": 250,
-            "pointsForMatch": 50,
+            "pointsRequired": 500,
+            "pointsForMatch": 100,
             "pointsForFail": -50
         },
         "level3" : {
             "pairs": 8,
             "firstCard": "flag",
             "secondCard": "capital",
-            "pointsRequired": 650,
-            "pointsForMatch": 50,
+            "pointsRequired": 1300,
+            "pointsForMatch": 100,
             "pointsForFail": -50
         },
         "countries" : [
