@@ -126,8 +126,8 @@ function printOptions(data) {
             $(this).css('background-color','green');
             neighbours[index] = null;
             if(++correct === neighbours.length) {
-                var points = levelConf.pointsForCorrectCountry * correct + (levelConf.pointsForFail * wrong)
-                //var points = 1400 - (50 * wrong);
+                //var points = levelConf.pointsForCorrectCountry * correct + (levelConf.pointsForFail * wrong)
+                var points = 500 + (levelConf.pointsForFail * wrong)
                 points = points < 0 ? 0 : points;
                 submitScore({'gameName': 'gpsQuestioning', 'score': points, 'level': levelConf.level});
                 alert("you've found all " + correct + " neighbours with " + wrong + " mistakes (" + points + " points)");
