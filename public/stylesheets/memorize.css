@@ -23,6 +23,12 @@ h1:hover {
     color: #DB70DB;
     text-shadow: 0 -1px 4px #751075;
 } */
+.points {
+  float: right;
+}
+.headline {
+  float: left;
+}
 #board {
   max-width: 496px;
   -webkit-perspective: 750px;

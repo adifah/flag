@@ -12,13 +12,15 @@
             a(href='/leaderboard/gpsQuestioning', data-icon='star', data-iconpos='notext') Leaderboard
         div(data-role='content', data-theme="a")
             div(id='levels')
-                p Please select a level
-                    div(data-role="controlgroup")
-                        if(unlockedLevels > 0)
-                            a(href="#", data-role="button", id="level1") Level 1
-                        if(unlockedLevels > 1)       
-                            a(href="#", data-role="button", id="level2") Level 2
-                        if(unlockedLevels > 2)
-                            a(href="#", data-role="button", id="level3") Level 3
+                h3(class='points') Score: #{score}
+                h3(class='headline') Select a level
+                div(style='clear:both')
+                div(data-role="controlgroup")
+                    if(unlockedLevels > 0)
+                        a(href="#", data-role="button", id="level1") Level 1
+                    if(unlockedLevels > 1)       
+                        a(href="#", data-role="button", id="level2") Level 2
+                    if(unlockedLevels > 2)
+                        a(href="#", data-role="button", id="level3") Level 3
             div(id="neighbours")
             div(id="karte")
