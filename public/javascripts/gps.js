@@ -139,11 +139,14 @@ function printOptions(data) {
     $('.submit').click(function() {
         var missing =  neighbours.length - correct;
         wrong += missing;
-        //var points = levelConf.pointsForCorrectCountry * correct + (levelConf.pointsForFail * wrong)
-        var points = 500 + (levelConf.pointsForFail * wrong)
+        // correctPercent is between 0 and 1 with one decimal place
+        var correctPercent = neighbours.length > 0 ? (correct / neighbours.length) : 1;
+        var correctPercent = correctPercent == 1 ? 1 : (Math.round(correctPercent*10)/10);
+        // correctPercent * 500 is betwenn 0 and 500 in intervals of 50
+        var points = (correctPercent * 500 ) + (levelConf.pointsForFail * wrong)
         points = points < 0 ? 0 : points;
         submitScore({'gameName': 'gpsQuestioning', 'score': points, 'level': levelConf.level});
-        alert("you've found " + correct + " of " + neighbours.length + " neighbours with " + wrong + " mistakes (" + points + " points)");
+        alert("you've found " + correct + " of " + neighbours.length + " neighbours with " + wrong + " mistakes (" + points + " points in " + time + " seconds)");
         //$('#neighbours').html("");
         //$('#levels').css('display', 'block');
         $.mobile.changePage( "gpsQuestioning", { reloadPage : true } );

@@ -1,6 +1,7 @@
 var socket = null;
 var gameId = null;
 var startTime = 0;
+var time = 0;
 
 $( document ).delegate("#dashboard", "pageinit", function() {
     if(socket == null) {
@@ -22,7 +23,8 @@ $( document ).delegate("#dashboard", "pageinit", function() {
 
 function submitScore(data) {
     data.gameId = gameId;
-    data.time = (new Date().getTime() - startTime) / 1000;
+    var requiredTime = (new Date().getTime() - startTime) / 1000;
+    time = data.time = Math.round(requiredTime*100)/100
     socket.emit('score', data);   
 }
 
