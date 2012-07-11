@@ -119,29 +119,34 @@ function printOptions(data) {
         }
     }
     options.sort(randomSort);
-    $('#neighbours').append("<button data-inline='true' class='neighbour'>" + options.join("</button><button data-inline='true' class='neighbour'>") + "</button>").trigger( "create" );;
-    
+    $('#neighbours')
+        .append("<button data-inline='true' class='neighbour'>" + options.join("</button><button data-inline='true' class='neighbour'>") + "</button>")
+        .append("<br /><br /><button data-inline='false' class='submit' data-icon='check' data-theme='c'>submit</button>")
+        .trigger( "create" );
     $('.neighbour').click(function() {
         var name = $(this).html();
         var index = $.inArray(name, neighbours);
         if( index > -1) {
             $(this).css('background-color','green');
             neighbours[index] = null;
-            if(++correct === neighbours.length) {
-                //var points = levelConf.pointsForCorrectCountry * correct + (levelConf.pointsForFail * wrong)
-                var points = 500 + (levelConf.pointsForFail * wrong)
-                points = points < 0 ? 0 : points;
-                submitScore({'gameName': 'gpsQuestioning', 'score': points, 'level': levelConf.level});
-                alert("you've found all " + correct + " neighbours with " + wrong + " mistakes (" + points + " points)");
-                //$('#neighbours').html("");
-                //$('#levels').css('display', 'block');
-                $.mobile.changePage( "gpsQuestioning", { reloadPage : true } );
-            }
+            correct++;
         } else {
             $(this).css('background-color','red');
             wrong++;
         }
         $(this).unbind('click');
+    });
+    $('.submit').click(function() {
+        var missing =  neighbours.length - correct;
+        wrong += missing;
+        //var points = levelConf.pointsForCorrectCountry * correct + (levelConf.pointsForFail * wrong)
+        var points = 500 + (levelConf.pointsForFail * wrong)
+        points = points < 0 ? 0 : points;
+        submitScore({'gameName': 'gpsQuestioning', 'score': points, 'level': levelConf.level});
+        alert("you've found " + correct + " of " + neighbours.length + " neighbours with " + wrong + " mistakes (" + points + " points)");
+        //$('#neighbours').html("");
+        //$('#levels').css('display', 'block');
+        $.mobile.changePage( "gpsQuestioning", { reloadPage : true } );
     });
 }
 
