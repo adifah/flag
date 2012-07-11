@@ -88,7 +88,7 @@ function determineNeighbours(position) {
             currentCountryName = data2.geonames[0].countryName;
             var currentCountryGeonameId = data2.geonames[0].geonameId;
             var neighboursUrl = "http://api.geonames.org/neighboursJSON?formatted=true&geonameId=" + currentCountryGeonameId + "&username=adifah";
-            jQuery("#neighbours").html("<h3>Your country:</b> " + currentCountryName + " (population: " + data2.geonames[0].population + ")</h3><h1>What are the neighbouring countries of " + currentCountryName + "?</h1>");
+            jQuery("#neighbours").html("<h3>Select all neighbouring countries of <u>" + currentCountryName + "</u> (population: " + data2.geonames[0].population + ")</h3>");
             $.getJSON(neighboursUrl, function(data3) {
                 printOptions(data3);
             });
